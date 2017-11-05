@@ -8,6 +8,7 @@ import { WeekdayTimetableComponent } from './weekday-timetable/weekday-timetable
 import { WeekdayListComponent } from './weekday-list/weekday-list.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule} from '@angular/forms';
+import { LessonComponent } from './lesson/lesson.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {FormsModule} from '@angular/forms';
     GroupListComponent,
     GroupTimetableComponent,
     WeekdayTimetableComponent,
-    WeekdayListComponent
+    WeekdayListComponent,
+    LessonComponent
   ],
   imports: [
     BrowserModule,

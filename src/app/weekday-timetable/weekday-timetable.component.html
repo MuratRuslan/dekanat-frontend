@@ -1,3 +1,4 @@
+
 <h3>{{weekday}}</h3>
 <table class="table">
   <thead>
@@ -13,74 +14,16 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <th scope="row">ИГ-1-15</th>
-    <td>Математика <span class="badge">404</span></td>
-    <td>Информатика</td>
-    <td>Немецкий</td>
-    <td>Английский</td>
-    <td></td>
-  </tr>
-  <tr>
-    <th scope="row">ИГ-2-15</th>
-    <td>Математика</td>
-    <td>Информатика</td>
-    <td>Немецкий</td>
-    <td>Английский</td>
-    <td></td>
-  </tr>
-  <tr>
-    <th scope="row">ИГ-1-14</th>
-    <td>Математика</td>
-    <td></td>
-    <td>Немецкий</td>
-    <td>Английский</td>
-    <td>Обработка картин</td>
-    <td></td>
-  </tr>
-  <tr>
-    <th scope="row">ИГ-1-16</th>
-    <td></td>
-    <td>Информатика</td>
-    <td>Немецкий</td>
-    <td>Английский</td>
-    <td></td>
-  </tr>
-  <tr>
-    <th scope="row">ИГ-2-16</th>
-    <td>Математика</td>
-    <td></td>
-    <td>Немецкий</td>
-    <td>Английский</td>
-    <td></td>
-  </tr>
-  <tr>
-    <th scope="row">ИГ-3-16</th>
-    <td>Математика</td>
-    <td>Информатика</td>
-    <td>Немецкий</td>
-    <td>Английский</td>
-    <td></td>
+  <tr *ngFor="let group of groups">
+    <th scope="row">{{group.name}}</th>
+    <td > <span *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, '08:00:00')"> {{lesson.subject.name}} <span class="badge">{{lesson.room.name}}</span></span> </td>
+    <td > <span *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, '09:30:00')"> {{lesson.subject.name}} <span class="badge">{{lesson.room.name}}</span></span> </td>
+    <td > <span *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, '11:00:00')"> {{lesson.subject.name}} <span class="badge">{{lesson.room.name}}</span></span> </td>
+    <td > <span *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, '12:30:00')"> {{lesson.subject.name}} <span class="badge">{{lesson.room.name}}</span></span> </td>
+    <td > <span *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, '14:00:00')"> {{lesson.subject.name}} <span class="badge">{{lesson.room.name}}</span></span> </td>
+    <td > <span *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, '15:30:00')"> {{lesson.subject.name}} <span class="badge">{{lesson.room.name}}</span></span> </td>
+    <td > <span *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, '17:00:00')"> {{lesson.subject.name}} <span class="badge">{{lesson.room.name}}</span></span> </td>
+    <td > <span *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, '17:00:00')"> {{lesson.subject.name}} <span class="badge">{{lesson.room.name}}</span></span> </td>
   </tr>
   </tbody>
 </table>
-
-<div class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
