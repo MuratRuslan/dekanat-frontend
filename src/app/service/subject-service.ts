@@ -1,11 +1,10 @@
-import {Lesson} from '../shared/para';
 import {Injectable, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
+import {Subject} from '../shared/para';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class LessonService implements OnInit {
-
+export class SubjectService implements OnInit {
   private headers = new Headers({'Content-Type': 'application/json'});
   private url = 'http://localhost:8080/api/';
 
@@ -15,15 +14,9 @@ export class LessonService implements OnInit {
   constructor(private http: Http) {
   }
 
-  getAllByDay(weekday: string): Promise<Lesson[]> {
-    return this.http.get(this.url + 'lessons/' + weekday)
-      .toPromise().then(res => res.json() as Lesson[])
-      .catch(this.handleError);
-  }
-
-  getLessonById(id: number): Promise<Lesson> {
-    return this.http.get(this.url + 'lesson/' + id)
-      .toPromise().then(res => res.json() as Lesson)
+  getAll(): Promise<Subject[]> {
+    return this.http.get(this.url + 'subjects/')
+      .toPromise().then(res => res.json() as Subject[])
       .catch(this.handleError);
   }
 

@@ -24,6 +24,5 @@ export class WeekdayListComponent implements OnInit {
 
   goToDetails() {
     this.router.navigate(['/detail', this.selectedDay]);
-    console.log(this.selectedDay);
   }
 }

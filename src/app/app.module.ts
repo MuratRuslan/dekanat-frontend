@@ -9,6 +9,11 @@ import { WeekdayListComponent } from './weekday-list/weekday-list.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule} from '@angular/forms';
 import { LessonComponent } from './lesson/lesson.component';
+import {HttpModule} from '@angular/http';
+import {LessonService} from './service/lesson-service';
+import {GroupService} from './service/group-service';
+import {SubjectService} from './service/subject-service';
+import {RoomService} from "./service/room-service";
 
 @NgModule({
   declarations: [
@@ -22,9 +27,10 @@ import { LessonComponent } from './lesson/lesson.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [LessonService, GroupService, SubjectService, RoomService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

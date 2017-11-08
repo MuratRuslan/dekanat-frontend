@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import {Gruppa, Lesson, Weekday} from '../shared/para';
-import {forEach} from '@angular/router/src/utils/collection';
+import {LessonService} from '../service/lesson-service';
+import {GroupService} from '../service/group-service';
 @Component({
   selector: 'app-weekday-timetable',
   templateUrl: './weekday-timetable.component.html',
@@ -10,22 +11,30 @@ import {forEach} from '@angular/router/src/utils/collection';
 })
 export class WeekdayTimetableComponent implements OnInit {
   weekday: string;
+  selectedTime: string;
+  selectedGroup: Gruppa;
   timetable: Lesson[] = Weekday.monday;
-  groups:  Gruppa[] = [{'id' : 3,  'name' : 'ИГ-1-14'  },  {'id'  : 1,  'name'  : 'ИГ-1-15'  },
-    {'id'  : 5,  'name'  : 'ИГ-1-16'  },  {'id'  : 8,  'name'  : 'ИГ-1-17'  },  {'id'  : 4,  'name'  : 'ИГ-2-14' },
-    {'id' : 2,  'name' : 'ИГ-2-15' },  {'id' : 6,  'name' : 'ИГ-2-16' },  {'id' : 9,  'name' : 'ИГ-2-17' },
-    {'id' : 7,  'name' : 'ИГ-3-16' },  {'id' : 10,  'name' : 'ИГ-3-17' },  {'id' : 11,  'name' : 'ИГ-4-17' }];
-  times: string[] = [];
-  constructor(private route: ActivatedRoute) { }
+  groups: Gruppa[] = [];
+  times: string[] = ['08:00:00', '09:30:00', '11:00:00', '12:30:00', '14:00:00', '15:30:00', '17:00:00'];
+  @Input() selectedLesson: Lesson;
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private lessonService: LessonService,
+              private groupService: GroupService) { }
 
   ngOnInit() {
     this.weekday = '';
     this.route.paramMap
       .switchMap((params: ParamMap) => {
-        this.weekday = '';
+      this.weekday = params.get('day');
+        this.getAll();
         return params.get('day');
       })
-      .subscribe(day => this.weekday += day);
+      .subscribe(day => {
+        // return this.weekday += day;
+      });
+    this.getAllGroups();
+    // console.log(this.weekday);
   }
 
   getLessonByGroup(id: number): Lesson[] {
@@ -34,5 +43,21 @@ export class WeekdayTimetableComponent implements OnInit {
 
   getLessonsByGroupIdAndTime(id: number, time: string): Lesson[] {
     return this.timetable.filter( obj => (obj.gruppa.id === id) && (obj.time === time));
+  }
+
+  getAll(): void {
+    this.lessonService.getAllByDay(this.weekday)
+      .then(obj => {
+        return this.timetable = obj;
+      });
+  }
+
+
+  getAllGroups(): void {
+    this.groupService.getAll().then(groups => this.groups = groups);
+  }
+
+  goToLessonDetails(groupId: number, time: string): void {
+      this.router.navigate(['/lesson', groupId, time, this.weekday]);
   }
 }
