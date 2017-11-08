@@ -18,9 +18,6 @@ export class AddTeacherComponent implements OnInit {
   }
 
   onAddTeacherButtonClicked() {
-    console.log(this.teacher.name)
-    console.log(this.teacher.surname)
-    console.log(this.teacher.middleName)
     this.teacherService.add(this.teacher);
   }
 
