@@ -59,10 +59,10 @@ export class LessonComponent implements OnInit {
   }
 
   getLessonByGroupIdAndTimeAndWeekday(groupId: number, time: string, weekday: string) {
-    this.lessonService.getAllByDay(weekday).then(
-      less => this.lesson = less.find(
-        obj => obj.time === time && obj.gruppa.id === groupId && obj.day === weekday)
-    );
+    /*  this.lessonService.getAllByDay(weekday).then(
+        less => this.lesson = less.find(
+          obj => obj.time === time && obj.gruppa.id === groupId && obj.day === weekday)
+      );*/
   }
 
   onClick(): void {

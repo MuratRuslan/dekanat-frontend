@@ -13,7 +13,7 @@ export class WeekdayTimetableComponent implements OnInit {
   weekday: string;
   selectedTime: string;
   selectedGroup: Gruppa;
-  timetable: Lesson[] = Weekday.monday;
+  timetable: Lesson[]/* = Weekday.monday*/;
   groups: Gruppa[] = [];
   times: string[] = ['08:00:00', '09:30:00', '11:00:00', '12:30:00', '14:00:00', '15:30:00', '17:00:00'];
   @Input() selectedLesson: Lesson;

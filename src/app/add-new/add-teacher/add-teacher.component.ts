@@ -20,5 +20,4 @@ export class AddTeacherComponent implements OnInit {
   onAddTeacherButtonClicked() {
     this.teacherService.add(this.teacher);
   }
-
 }

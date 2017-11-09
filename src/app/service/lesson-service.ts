@@ -14,7 +14,6 @@ export class LessonService implements OnInit {
 
   constructor(private http: Http) {
   }
-
   getAllByDay(weekday: string): Promise<Lesson[]> {
     return this.http.get(this.url + 'lessons/' + weekday)
       .toPromise().then(res => res.json() as Lesson[])
