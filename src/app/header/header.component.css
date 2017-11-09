@@ -1,0 +1,9 @@
+.nav li {
+  display: inline-block;
+  padding-right: 50px;
+}
+
+.nav li:hover {
+  color: aqua;
+  cursor: pointer;
+}

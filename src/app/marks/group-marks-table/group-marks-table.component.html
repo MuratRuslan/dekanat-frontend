@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>
+    {{semester}}
+  </h1>
+  <table cellpadding="19px">
+    <tr>
+      <th>Students</th>
+      <th *ngFor="let subject of subjects">{{subject.name}}</th>
+    </tr>
+    <tr *ngFor="let student of group.students">
+      <td>{{student.surname+' '+student.name|uppercase}}</td>
+      <td *ngFor="let subject of subjects">{{getMarkBySubject(student,subject)}}</td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,11 @@
+.studentInfo{
+  display: inline-block;
+}
+.name{
+  float: right;
+  margin-top: 50px;
+  margin-left: 20px;
+}
+.avatar{
+  margin-top: 20px;
+}
