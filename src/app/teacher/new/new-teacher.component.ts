@@ -3,11 +3,11 @@ import {TeacherService} from '../../service/teacher-service';
 import {Teacher} from '../../shared/para';
 
 @Component({
-  selector: 'app-add-teacher',
-  templateUrl: './add-teacher.component.html',
-  styleUrls: ['./add-teacher.component.css']
+  selector: 'app-new-teacher',
+  templateUrl: './new-teacher.component.html',
+  styleUrls: ['./new-teacher.component.css']
 })
-export class AddTeacherComponent implements OnInit {
+export class NewTeacherComponent implements OnInit {
 
   teacher = new Teacher();
 
@@ -17,7 +17,7 @@ export class AddTeacherComponent implements OnInit {
   ngOnInit() {
   }
 
-  onAddTeacherButtonClicked() {
+  addTeacher() {
     this.teacherService.add(this.teacher);
   }
 }

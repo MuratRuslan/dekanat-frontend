@@ -1,15 +1,21 @@
-<div class="container">
-  <nav class="navbar navbar-default">
-    <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a>Home</a></li>
-        <li><a>Mark Journal</a></li>
-        <li><a>Timetable</a></li>
-        <li><a>Teachers</a></li>
-        <li><a>Groups</a></li>
-        <li><a>Students</a></li>
-        <li><a>About programmers </a></li>
-      </ul>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Dekanat</a>
     </div>
-  </nav>
-</div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Journal</a></li>
+      <li><a href="#">Timetable</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Add
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a routerLink="/groups/new">Group</a></li>
+          <li><a routerLink="/teachers/new">Teacher</a></li>
+          <li><a routerLink="/students/new">Student</a></li>
+          <li><a routerLink="/subjects/new">Subject</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>

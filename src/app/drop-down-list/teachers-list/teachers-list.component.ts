@@ -19,13 +19,13 @@ export class TeachersListComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*  this.teachers = new Array();
+    /*  this.teacher = new Array();
       const t = new Teacher();
       t.name = 'tima';
       t.surname = 'renatov';
-      this.teachers.push(t);*/
+      this.teacher.push(t);*/
     /*
-        this.teachers = this.teacherService.getAll();
+        this.teacher = this.teacherService.getAll();
     */
   }
 }
