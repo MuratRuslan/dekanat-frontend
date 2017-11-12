@@ -1,14 +1,32 @@
-<div class="container">
-  <app-add-teacher></app-add-teacher>
- <!-- <div class="row">
-    <div class="col-sm">
-      <app-weekday-list></app-weekday-list>
-    </div>
-    <div class="col-sm">
+<!--<div class="container">-->
+  <!--<div class="row">-->
+    <!--<div class="col-sm">-->
+      <!--<app-weekday-list></app-weekday-list>-->
+    <!--</div>-->
+    <!--<div class="col-sm">-->
 
-    </div>
-    <div class="col-sm">
-      <router-outlet></router-outlet>
-    </div>
-  </div>-->
-</div>
+    <!--</div>-->
+    <!--<div class="col-sm">-->
+      <!--<router-outlet></router-outlet>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<nav>
+  <div class="container">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Деканат</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Домой</a></li>
+          <li><a routerLink="/journal">Журнал</a></li>
+          <li><a routerLink="/timetable">Расписание</a></li>
+          <li><a routerLink="/admin">Администрирование</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</nav>
+<router-outlet></router-outlet>
+

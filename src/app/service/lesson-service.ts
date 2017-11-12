@@ -1,29 +1,21 @@
-import {Lesson} from '../shared/para';
 import {Injectable, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import {Lesson} from '../shared/model/LessonModel';
+import {DefaultService} from './default-service';
 
 @Injectable()
-export class LessonService implements OnInit {
+export class LessonService extends DefaultService<Lesson> {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
-  private url = 'http://localhost:8080/api/';
 
-  ngOnInit(): void {
-  }
-
-  constructor(private http: Http) {
+  constructor(http: Http) {
+    super(http);
+    this.serviceUrl = '/lessons';
   }
 
   getAllByDay(weekday: string): Promise<Lesson[]> {
-    return this.http.get(this.url + 'lessons/' + weekday)
+    return this.http.get(this.url + this.serviceUrl + '/day/' + weekday)
       .toPromise().then(res => res.json() as Lesson[])
-      .catch(this.handleError);
-  }
-
-  getLessonById(id: number): Promise<Lesson> {
-    return this.http.get(this.url + 'lesson/' + id)
-      .toPromise().then(res => res.json() as Lesson)
       .catch(this.handleError);
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Weekday} from '../shared/para';
 import {Router} from '@angular/router';
+import {Weekday} from '../../shared/model/Weekday';
 
 @Component({
   selector: 'app-weekday-list',
@@ -8,8 +8,6 @@ import {Router} from '@angular/router';
   styleUrls: ['./weekday-list.component.css']
 })
 export class WeekdayListComponent implements OnInit {
-  // weeks = ['ПОНЕДЕЛЬНИК', 'ВТОРНИК', 'СРЕДА', 'ЧЕТВЕРГ', 'ПЯТНИЦА',
-  //   'СУББОТА', 'ВОСКРЕСЕНЬЕ'];
   weeks: string[] = Weekday.weekdays;
   selectedDay: string;
   constructor(private router: Router) { }
@@ -23,6 +21,6 @@ export class WeekdayListComponent implements OnInit {
   }
 
   goToDetails() {
-    this.router.navigate(['/detail', this.selectedDay]);
+    this.router.navigate(['timetable/detail', this.selectedDay]);
   }
 }
