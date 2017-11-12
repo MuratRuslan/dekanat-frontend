@@ -5,19 +5,15 @@ import 'rxjs/add/operator/toPromise';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Student} from '../shared/model/StudentModel';
+import {DefaultService} from './default-service';
+import {Http} from '@angular/http';
 
 @Injectable()
-export class StudentService {
+export class StudentService extends DefaultService<Student> {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
-  teacherUrl = 'http://localhost:8080/student';
-
-  constructor(private http: HttpClient) {
-
+  constructor(http: Http) {
+    super(http);
+    this.serviceUrl = '/students';
   }
 
-
-  findAll(): Student[] {
-    return null;
-  }
 }

@@ -30,7 +30,7 @@ export class LessonComponent implements OnInit {
     lesson.day = weekday;
     lesson.subject = {id: null, name: ''};
     lesson.rooms = [];
-    lesson.gruppa = {id: groupId, name: ''};
+    lesson.gruppa = {id: groupId, name: '', students: []};
     return lesson;
   }
 
