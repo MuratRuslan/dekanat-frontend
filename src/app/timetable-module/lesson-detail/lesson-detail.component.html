@@ -1,0 +1,22 @@
+<div class="container">
+  <h2>Изменение данных</h2>
+  <p>Выберите данные и нажмите сохранить чтобы внести в базу данных:</p>
+  <form>
+    <div class="form-group">
+      <label for="subjects">Предмет</label>
+      <select *ngIf="lesson" class="form-control" id="subjects" [(ngModel)]="lesson.subject" name="selectedSubject" required>
+        <option *ngFor="let subject of subjects" [ngValue]="subject"
+                > {{subject.name}}
+        </option>
+      </select>
+    </div>
+    <div class="form-group" *ngIf="rooms">
+      <label for="rooms">Кабинет</label>
+      <select multiple class="form-control" id="rooms" [(ngModel)]="lesson.rooms" name="sldkfj">
+        <option *ngFor="let room of rooms" [ngValue]="room">{{room.name}}</option>
+      </select>
+      <p>Зажмите ctrl чтобы выбрать несколько кабинетов</p>
+    </div>
+    <button type="submit" (click)="save()" class="btn btn-primary">Сохранить</button>
+  </form>
+</div>

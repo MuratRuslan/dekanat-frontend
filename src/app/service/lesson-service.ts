@@ -12,7 +12,6 @@ export class LessonService extends DefaultService<Lesson> {
     super(http);
     this.serviceUrl = '/lessons';
   }
-
   getAllByDay(weekday: string): Promise<Lesson[]> {
     return this.http.get(this.url + this.serviceUrl + '/day/' + weekday)
       .toPromise().then(res => res.json() as Lesson[])
