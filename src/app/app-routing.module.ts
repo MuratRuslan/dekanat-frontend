@@ -9,6 +9,7 @@ import {MainPageComponent} from './main-page/main-page.component';
 import {AddTeacherComponent} from './admin-module/add-teacher/add-teacher.component';
 import {GroupInfoComponent} from "./journal-module/group/group-info/group-info.component";
 import {AddStudentComponent} from "./admin-module/add-student/add-student.component";
+import {AddRoomComponent} from "./admin-module/add-room/add-room.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/main', pathMatch: 'full'},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'admin', component: AdminComponent},
   {path: 'add/teacher', component: AddTeacherComponent},
   {path: 'add/student', component: AddStudentComponent},
+  {path: 'add/room', component: AddRoomComponent},
   {path: 'group/:id', component: GroupInfoComponent}
 ];
 

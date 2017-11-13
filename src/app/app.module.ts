@@ -22,6 +22,7 @@ import {AddTeacherComponent} from './admin-module/add-teacher/add-teacher.compon
 import {GroupInfoComponent} from './journal-module/group/group-info/group-info.component';
 import {AddStudentComponent} from './admin-module/add-student/add-student.component';
 import {StudentService} from "./service/student-service";
+import { AddRoomComponent } from './admin-module/add-room/add-room.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {StudentService} from "./service/student-service";
     MainPageComponent,
     AddTeacherComponent,
     GroupInfoComponent,
-    AddStudentComponent
+    AddStudentComponent,
+    AddRoomComponent
   ],
   imports: [
     BrowserModule,
