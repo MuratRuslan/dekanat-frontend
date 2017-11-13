@@ -9,6 +9,12 @@ export class DefaultService<T> {
 
   }
 
+  getById(id: number): Promise<T> {
+    return this.http.get(this.url + this.serviceUrl + '/' + id)
+      .toPromise().then( res => res.json() as T)
+      .catch(this.handleError);
+  }
+
   getAll(): Promise<T[]> {
     return this.http.get(this.url + this.serviceUrl)
       .toPromise().then(res => res.json() as T[])

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {LessonService} from '../../service/lesson-service';
 import {Lesson} from '../../shared/model/LessonModel';
+import {GroupService} from '../../service/group-service';
+import {Gruppa} from "../../shared/model/GroupModel";
 
 @Component({
   selector: 'app-lesson',
@@ -10,8 +12,10 @@ import {Lesson} from '../../shared/model/LessonModel';
 })
 export class LessonComponent implements OnInit {
   lessons: Lesson[];
+  group: Gruppa;
 
   constructor(private lessonService: LessonService,
+              private groupService: GroupService,
               private route: ActivatedRoute) {
   }
 
@@ -20,6 +24,7 @@ export class LessonComponent implements OnInit {
       const time = params['time'];
       const id: number = +params['id'];
       const day = params['weekday'];
+      this.groupService.getById(id).then( res => this.group = res);
       this.getAllLessonsByDayAndTimeAndGroup(day, time, id);
     });
   }
@@ -30,7 +35,7 @@ export class LessonComponent implements OnInit {
     lesson.day = weekday;
     lesson.subject = {id: null, name: ''};
     lesson.rooms = [];
-    lesson.gruppa = {id: groupId, name: ''};
+    lesson.gruppa = this.group;
     return lesson;
   }
 

@@ -18,7 +18,8 @@ import {TeacherService} from './service/teacher-service';
 import { AdminComponent } from './admin-module/admin/admin.component';
 import {GroupListComponent} from './journal-module/drop-down-list/group-list/group-list.component';
 import { MainPageComponent } from './main-page/main-page.component';
-import { AddTeacherComponent } from './admin-module/add-teacher/add-teacher.component';
+import { AddTeacherComponent } from './admin-module/add/add-teacher/add-teacher.component';
+import { AddSubjectComponent } from './admin-module/add/add-subject/add-subject.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AddTeacherComponent } from './admin-module/add-teacher/add-teacher.comp
     AdminComponent,
     GroupListComponent,
     MainPageComponent,
-    AddTeacherComponent
+    AddTeacherComponent,
+    AddSubjectComponent
   ],
   imports: [
     BrowserModule,

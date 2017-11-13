@@ -18,5 +18,6 @@
       <p>Зажмите ctrl чтобы выбрать несколько кабинетов</p>
     </div>
     <button type="submit" (click)="save()" class="btn btn-primary">Сохранить</button>
+    <button *ngIf="lesson.id" type="button" class="btn btn-danger" (click)="delete()">Удалить</button>
   </form>
 </div>

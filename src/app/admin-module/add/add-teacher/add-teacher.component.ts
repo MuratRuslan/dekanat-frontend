@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Teacher} from '../../shared/model/TeacherModel';
-import {TeacherService} from '../../service/teacher-service';
+import {Teacher} from '../../../shared/model/TeacherModel';
+import {TeacherService} from '../../../service/teacher-service';
 
 @Component({
   selector: 'app-add-teacher',

@@ -4,7 +4,7 @@ import {RoomService} from '../../service/room-service';
 import {Lesson} from '../../shared/model/LessonModel';
 import {Subject} from '../../shared/model/SubjectModel';
 import {Room} from '../../shared/model/RoomModel';
-import {LessonService} from "../../service/lesson-service";
+import {LessonService} from '../../service/lesson-service';
 
 @Component({
   selector: 'app-lesson-detail',
@@ -24,7 +24,7 @@ export class LessonDetailComponent implements OnInit {
   ngOnInit() {
     this.getAllSubjects();
     this.getAllRooms();
-    console.log(this.lesson.subject.name);
+    console.log(this.lesson.gruppa.name);
   }
 
   getAllSubjects(): void {
@@ -57,5 +57,16 @@ export class LessonDetailComponent implements OnInit {
         alert('Успешно добавлен');
       }
     });
+  }
+
+
+  delete(): void {
+    this.lessonService.delete(this.lesson.id).then(
+      res => {
+        if (res.ok) {
+          alert('Успешно удален');
+        }
+      }
+    );
   }
 }
