@@ -6,8 +6,7 @@ import {LessonComponent} from './timetable-module/lesson/lesson.component';
 import {AdminComponent} from './admin-module/admin/admin.component';
 import {GroupListComponent} from './journal-module/drop-down-list/group-list/group-list.component';
 import {MainPageComponent} from './main-page/main-page.component';
-import {AddTeacherComponent} from './admin-module/add/add-teacher/add-teacher.component';
-import {AddSubjectComponent} from './admin-module/add/add-subject/add-subject.component';
+import {AddTeacherComponent} from './admin-module/add-teacher/add-teacher.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/main', pathMatch: 'full'},
@@ -17,8 +16,7 @@ const routes: Routes = [
   {path: 'timetable/lesson/:id/:time/:weekday', component: LessonComponent},
   {path: 'journal', component: GroupListComponent},
   {path: 'admin', component: AdminComponent},
-  {path: 'add/teacher', component: AddTeacherComponent},
-  {path: 'add/subject', component: AddSubjectComponent}
+  {path: 'add/teacher', component: AddTeacherComponent}
 ];
 
 @NgModule({

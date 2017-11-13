@@ -1,0 +1,10 @@
+<div class="container">
+  <form>
+    <div class="form-group">
+      <label for="room">Имя</label>
+      <input required type="text" class="form-control" id="room" name="name" placeholder="Имя"
+             [(ngModel)]="room.name">
+    </div>
+    <button type="submit" (click)="addRoom()" class="btn btn-primary">Submit</button>
+  </form>
+</div>

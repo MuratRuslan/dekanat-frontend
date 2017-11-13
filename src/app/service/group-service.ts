@@ -12,4 +12,7 @@ export class GroupService extends DefaultService<Gruppa> {
     this.serviceUrl = '/groups';
   }
 
+  findById(id: number): Gruppa {
+    return null;
+  }
 }
