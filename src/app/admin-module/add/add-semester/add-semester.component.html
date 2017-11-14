@@ -1,0 +1,17 @@
+<div class="container">
+  <form>
+    <div class="form-group">
+      <label for="semester">Семестр</label>
+      <select  class="form-control" id="semester" [(ngModel)]="semester.name" name="selectedSemester" required>
+        <option *ngFor="let option of options" [value]="option">{{option}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="studyYear">Учебный год</label>
+      <select  class="form-control" id="studyYear" [(ngModel)]="semester.year"  name="selectedYear" required>
+        <option *ngFor="let year of years" [ngValue] = "year">{{year.getFullYear() +' - '+ (year.getFullYear()+1)}}</option>
+      </select>
+    </div>
+    <button type="submit" (click)="save()" class="btn btn-primary">Submit</button>
+  </form>
+</div>
