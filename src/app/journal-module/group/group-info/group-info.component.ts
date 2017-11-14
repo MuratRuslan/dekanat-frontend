@@ -7,6 +7,8 @@ import {Semester} from '../../../shared/model/SemesterModel';
 import {Mark} from '../../../shared/model/MarkModel';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
+import {SubjectService} from '../../../service/subject-service';
+import {SemesterService} from '../../../service/semester-service';
 
 @Component({
   selector: 'app-group-info',
@@ -16,14 +18,16 @@ import {Observable} from 'rxjs/Observable';
 export class GroupInfoComponent implements OnInit, OnDestroy {
 
   group: Gruppa = new Gruppa();
+  allSubjectsInDekanat: Subject[];
   subjects: Subject[] = [];
-  students: Student[] = [];
-  studentsObservable: Observable<Student[]>;
-  subjectsObservable: Observable<Subject[]>;
+  students: Student[];
   semesters: Semester[] = [];
   currentSemester: Semester;
 
-  constructor(private groupService: GroupService, private activatedRoute: ActivatedRoute) {
+  constructor(private groupService: GroupService,
+              private activatedRoute: ActivatedRoute,
+              private subjectService: SubjectService,
+              private semesterService: SemesterService) {
     this.test();
     this.currentSemester = this.semesters[0];
   }
@@ -42,7 +46,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
 
     const semester = new Semester();
     semester.name = 'ЗИМНИЙ';
-    semester.year = new Date('01 01 2017')
+    semester.year = new Date('01 01 2017');
 
     const subject = new Subject();
     subject.name = 'Math';
@@ -67,10 +71,32 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
     this.subjects.push(subject);
   }
 
+  getSubjectsBySemester(semester: Semester): Subject[] {
+    const subjects: Subject[] = new Array();
+    for (const student of this.group.students) {
+      for (const mark of student.marks) {
+        if (mark.semester.id === semester.id) {
+          if (subjects.indexOf(mark.subject) === -1) {
+            this.subjects.push(mark.subject);
+          }
+        }
+      }
+    }
+    return this.subjects;
+  }
+
+  updateTable(semester: Semester) {
+    this.currentSemester = semester;
+    this.subjects.length = 0;
+    this.subjects = this.getSubjectsBySemester(this.currentSemester);
+    this.students = this.group.students;
+  }
+
   ngOnInit() {
     /*   this.activatedRoute.queryParams.subscribe(queryParams => {
          this.group = this.groupService.findById(+queryParams['id']);
        });*/
+    this.updateTable(this.currentSemester);
   }
 
   ngOnDestroy(): void {

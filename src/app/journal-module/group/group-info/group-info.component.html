@@ -1,26 +1,30 @@
 <div class="container">
-<h1>{{group.name}}</h1>
-<div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{semesters[0].period}}
-    <span class="caret"></span></button>
-  <ul class="dropdown-menu">
-    <li *ngFor="let semester of semesters"><a>{{semester.year+" "+semester.period}}</a></li>
-  </ul>
-</div>
+  <h1>{{group.name}}</h1>
+  <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{semesters[0].period}}
+      <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li *ngFor="let semester of semesters" (click)="updateTable(semester)"><a>{{semester.year+"
+        "+semester.period}}</a></li>
+    </ul>
+  </div>
 
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th>Students</th>
-    <th *ngFor="let subject of subjects">{{subject.name}}</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let student of group.students">
-    <td>{{student.surname+" "+student.name}}</td>
-    <td *ngFor="let s of subjects">{{getMarkBySubject(student,s)}}</td>
-  </tr>
-  </tbody>
-</table>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Students</th>
+      <th *ngFor="let subject of subjects">{{subject.name}}</th>
+      <th>
+        <button class="btn btn-default">Add subject</button>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let student of students">
+      <td>{{student.surname+" "+student.name}}</td>
+      <td *ngFor="let s of subjects">{{getMarkBySubject(student,s)}}</td>
+    </tr>
+    </tbody>
+  </table>
 
 </div>
