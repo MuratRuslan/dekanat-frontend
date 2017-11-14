@@ -1,11 +1,10 @@
 <div class="container">
   <h1>{{group.name}}</h1>
   <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{semesters[0].period}}
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose semester
       <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li *ngFor="let semester of semesters" (click)="updateTable(semester)"><a>{{semester.year+"
-        "+semester.period}}</a></li>
+      <li *ngFor="let semester of semesters" (click)="updateTable(semester)"><a>{{semester.year.getFullYear()+" "+semester.name}}</a></li>
     </ul>
   </div>
 
