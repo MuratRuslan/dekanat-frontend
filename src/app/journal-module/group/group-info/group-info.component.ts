@@ -17,6 +17,8 @@ import {SemesterService} from '../../../service/semester-service';
 })
 export class GroupInfoComponent implements OnInit, OnDestroy {
 
+  tempSubjects: Subject[] = [{id: 5, name: 'Database', teachers: []},
+    {id: 1, name: 'Algorithmen', teachers: []}];
   group: Gruppa = new Gruppa();
   allSubjectsInDekanat: Subject[];
   subjects: Subject[] = [];
