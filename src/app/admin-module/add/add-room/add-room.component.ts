@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Room} from '../../shared/model/RoomModel';
-import {RoomService} from '../../service/room-service';
+import {Room} from '../../../shared/model/RoomModel';
+import {RoomService} from '../../../service/room-service';
+
 
 @Component({
   selector: 'app-add-room',
@@ -19,9 +20,7 @@ export class AddRoomComponent implements OnInit {
 
   addRoom() {
     this.roomService.add(this.room).then(res => {
-      if (res.ok) {
-        alert('Успешно добавлен!');
-      }
+      alert(res);
     });
   }
 

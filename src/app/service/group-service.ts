@@ -11,8 +11,4 @@ export class GroupService extends DefaultService<Gruppa> {
     super(http);
     this.serviceUrl = '/groups';
   }
-
-  findById(id: number): Gruppa {
-    return null;
-  }
 }

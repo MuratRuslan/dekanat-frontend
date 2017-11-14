@@ -1,6 +1,6 @@
 
 export class Semester {
   id: number;
-  year: string;
-  period;
+  year: Date;
+  name: string;
 }

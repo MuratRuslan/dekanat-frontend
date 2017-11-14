@@ -8,14 +8,16 @@ import {Subject} from '../../../shared/model/SubjectModel';
   styleUrls: ['./add-subject.component.css']
 })
 export class AddSubjectComponent implements OnInit {
-  subject: Subject;
-  constructor(private subjectService: SubjectService) { }
+  subject: Subject = new Subject();
+  constructor(private subjectService: SubjectService) {
+    this.subject.teachers = [];
+  }
 
   ngOnInit() {
   }
 
   addSubject() {
-    this.subjectService.add(this.subject);
+    this.subjectService.add(this.subject).then(msg => alert(msg));
   }
 
 }

@@ -9,6 +9,7 @@ import {TeacherService} from '../../../service/teacher-service';
 })
 export class AddTeacherComponent implements OnInit {
   @Input() teacher: Teacher;
+
   constructor(private teacherService: TeacherService) {
     this.teacher = new Teacher();
   }
@@ -18,9 +19,8 @@ export class AddTeacherComponent implements OnInit {
 
   addTeacher(teacher: Teacher): void {
     this.teacherService.add(teacher).then(res => {
-      if (res.ok) {
-        alert('Успешно добавлен!');
-        this.teacher = new Teacher();
-      }});
+      alert('Успешно добавлен!');
+      this.teacher = new Teacher();
+    });
   }
 }

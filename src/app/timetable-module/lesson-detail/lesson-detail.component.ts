@@ -24,7 +24,6 @@ export class LessonDetailComponent implements OnInit {
   ngOnInit() {
     this.getAllSubjects();
     this.getAllRooms();
-    console.log(this.lesson.gruppa.name);
   }
 
   getAllSubjects(): void {
@@ -53,9 +52,7 @@ export class LessonDetailComponent implements OnInit {
 
   save(): void {
     this.lessonService.add(this.lesson).then(res => {
-      if (res.ok) {
-        alert('Успешно добавлен');
-      }
+      alert(res);
     });
   }
 
@@ -63,9 +60,7 @@ export class LessonDetailComponent implements OnInit {
   delete(): void {
     this.lessonService.delete(this.lesson.id).then(
       res => {
-        if (res.ok) {
-          alert('Успешно удален');
-        }
+        alert(res);
       }
     );
   }

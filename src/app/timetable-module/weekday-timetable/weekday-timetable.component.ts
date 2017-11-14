@@ -5,6 +5,7 @@ import {LessonService} from '../../service/lesson-service';
 import {GroupService} from '../../service/group-service';
 import {Gruppa} from '../../shared/model/GroupModel';
 import {Lesson} from '../../shared/model/LessonModel';
+import { Subject } from 'rxjs/Rx';
 @Component({
   selector: 'app-weekday-timetable',
   templateUrl: './weekday-timetable.component.html',
@@ -12,12 +13,11 @@ import {Lesson} from '../../shared/model/LessonModel';
 })
 export class WeekdayTimetableComponent implements OnInit {
   weekday: string;
-  selectedTime: string;
-  selectedGroup: Gruppa;
   timetable: Lesson[];
   groups: Gruppa[] = [];
+  dtOptions: any = {};
+  dtTrigger: Subject<any> = new Subject();
   times: string[] = ['08:00:00', '09:30:00', '11:00:00', '12:30:00', '14:00:00', '15:30:00', '17:00:00'];
-  @Input() selectedLesson: Lesson;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private lessonService: LessonService,
@@ -34,6 +34,34 @@ export class WeekdayTimetableComponent implements OnInit {
       .subscribe(day => {
       });
     this.getAllGroups();
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      dom: 'Bfrtip',
+      // Configure the buttons
+      buttons: [
+        'colvis',
+        'copy',
+        'print',
+        'excel',
+        {
+          extend: 'csvHtml5',
+          filename: 'Monday',
+          text: 'csv',
+          charset: 'UTF-16LE,',
+          bom: true
+        },
+        {
+          extend: 'pdfHtml5',
+          filename: 'Monday',
+          text: 'pdf',
+          charset: 'UTF-16LE,',
+          fieldSeparator: '\t',
+          bom: true
+        }
+      ],
+      responsive: true
+    };
   }
 
   getLessonByGroup(id: number): Lesson[] {
@@ -47,15 +75,14 @@ export class WeekdayTimetableComponent implements OnInit {
   getAll(): void {
     this.lessonService.getAllByDay(this.weekday)
       .then(obj => {
-        return this.timetable = obj;
+        this.timetable = obj;
+        this.dtTrigger.next();
       });
   }
 
   delete(id: number): void {
     this.lessonService.delete(id).then( res => {
-      if (res.ok) {
-        alert('Успешно удален');
-      }
+      alert(res);
     });
   }
 

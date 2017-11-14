@@ -1,30 +1,26 @@
 <div class="container">
-  <h3>{{weekday}}</h3>
   <div class="table-responsive">
-    <table class="table">
+    <!--<table class="table">-->
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
       <thead>
+      <h3>{{weekday}}</h3>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">8:00</th>
-        <th scope="col">9:30</th>
-        <th scope="col">11:00</th>
-        <th scope="col">12:30</th>
-        <th scope="col">14:00</th>
-        <th scope="col">15:30</th>
-        <th scope="col">17:00</th>
+        <th scope="col" *ngFor="let time of times">{{time.slice(0, 5)}}</th>
       </tr>
       </thead>
-      <tbody *ngIf="timetable">
+      <tbody>
       <tr *ngFor="let group of groups">
         <th scope="row">{{group.name}}</th>
         <td *ngFor="let time of times" (click)="goToLessonDetails(group.id, time)">
-          <div *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)"> {{lesson.subject.name}}
-            <span class="badge" *ngFor="let room of lesson.rooms">{{room.name}}</span>
-          </div>
+          <ng-container *ngIf="timetable">
+            <div *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)"> {{lesson.subject.name}}
+              <span class="badge" *ngFor="let room of lesson.rooms">{{room.name}}</span>
+            </div>
+          </ng-container>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
-

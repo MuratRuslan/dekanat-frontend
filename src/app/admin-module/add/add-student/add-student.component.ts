@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Student} from '../../shared/model/StudentModel';
-import {StudentService} from '../../service/student-service';
-import {GroupService} from '../../service/group-service';
-import {Gruppa} from '../../shared/model/GroupModel';
+import {Student} from '../../../shared/model/StudentModel';
+import {StudentService} from '../../../service/student-service';
+import {GroupService} from '../../../service/group-service';
+import {Gruppa} from '../../../shared/model/GroupModel';
 
 @Component({
   selector: 'app-add-student',
@@ -13,20 +13,19 @@ export class AddStudentComponent implements OnInit {
 
   student: Student = new Student();
   groups: Gruppa[] = [];
-  selectedGroup: Gruppa;
 
-  constructor(private studentService: StudentService, private groupService: GroupService) {
-/*
-    groupService.getAll().then(grs => this.groups = grs);
-*/
+  constructor(private studentService: StudentService,
+              private groupService: GroupService) {
   }
 
   ngOnInit() {
-    this.student.gruppa = this.selectedGroup;
+    this.groupService.getAll()
+      .then( groups => this.groups = groups);
+  }
+
+  addStudent(): void {
     this.studentService.add(this.student).then(res => {
-      if (res.ok) {
-        alert('Успешно добавлен!');
-      }
+      alert(res);
     });
   }
 

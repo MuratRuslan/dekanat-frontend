@@ -21,23 +21,24 @@ export class DefaultService<T> {
       .catch(this.handleError);
   }
 
-  add (model: T): Promise<Response> {
+  add (model: T): Promise<string> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({headers: headers });
     return this.http.post(this.url + this.serviceUrl, [model], options).toPromise()
-      .then(res => res)
+      .then(res => {
+        return res.text();
+      })
       .catch(this.handleError);
   }
 
-  delete(id: number): Promise<Response> {
+  delete(id: number): Promise<string> {
     return this.http.delete(this.url + this.serviceUrl + '/' + id,
       new RequestOptions({headers: this.headers})).toPromise()
-      .then( res => res)
+      .then( res => res.text())
       .catch(this.handleError);
   }
 
-  handleError(msg: any): Promise<any> {
-    console.error('An error occurred', msg);
-    return Promise.reject(msg.message || msg );
+  handleError(msg: Response): Promise<string> {
+    return Promise.resolve(msg.text());
   }
 }

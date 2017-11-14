@@ -41,8 +41,8 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
 
 
     const semester = new Semester();
-    semester.period = '1';
-    semester.year = '2017';
+    semester.name = 'ЗИМНИЙ';
+    semester.year = new Date('01 01 2017')
 
     const subject = new Subject();
     subject.name = 'Math';

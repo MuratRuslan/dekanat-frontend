@@ -19,10 +19,10 @@
       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Group
         <span class="caret"></span></button>
       <ul class="dropdown-menu">
-        <li><a *ngFor="let group of groups" [(ngModel)]="selectedGroup">{{group.name}}</a></li>
+        <li><a *ngFor="let group of groups" name="lskdfjwoei" (click)="student.gruppa = group">{{group.name}}</a></li>
       </ul>
     </div>
     <br>
-    <button type="submit" (click)="addStudent()" class="btn btn-primary">Submit</button>
+    <button type="submit" (click)="addStudent()" name="lskdfj" class="btn btn-primary">Submit</button>
   </form>
 </div>
