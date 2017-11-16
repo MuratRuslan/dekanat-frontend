@@ -3,7 +3,7 @@ import {Semester} from './SemesterModel';
 
 export class Mark {
   id: number;
-  mark: number;
+  marks: number[] = [];
   subject: Subject;
   semester: Semester;
 }

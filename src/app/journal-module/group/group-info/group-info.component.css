@@ -1,0 +1,41 @@
+.saveButton {
+  float: right;
+  width: 114px;
+}
+
+.warning{
+  background-color: #fff10d;
+}
+.modal{
+  max-height: 500px;
+}
+
+td, th {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+}
+
+.addSubjectBtn {
+  width: 114px;
+  float: right;
+}
+
+.table {
+  max-width: none;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.center {
+  text-align: center;
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+.underline {
+  text-decoration: underline;
+}

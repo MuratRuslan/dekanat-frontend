@@ -17,14 +17,23 @@ import {SemesterService} from '../../../service/semester-service';
 })
 export class GroupInfoComponent implements OnInit, OnDestroy {
 
-  tempSubjects: Subject[] = [{id: 5, name: 'Database', teachers: []},
-    {id: 1, name: 'Algorithmen', teachers: []}];
+  tempSubjects: Subject[] = [
+    {id: 5, name: 'Database', teachers: []},
+    {id: 3, name: 'Economics', teachers: []},
+    {id: 2, name: 'Deutsch', teachers: []},
+    {id: 1, name: 'Informatics', teachers: []},
+    {id: 1, name: 'Algorithmen', teachers: []},
+    {id: 2, name: 'Chemostry', teachers: []},
+    {id: 2, name: 'Geometry', teachers: []}
+  ];
   group: Gruppa = new Gruppa();
   allSubjectsInDekanat: Subject[];
   subjects: Subject[] = [];
   students: Student[];
   semesters: Semester[] = [];
   currentSemester: Semester;
+  dataChanged = false;
+  maxRetakes = 3;
 
   constructor(private groupService: GroupService,
               private activatedRoute: ActivatedRoute,
@@ -34,19 +43,11 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
     this.currentSemester = this.semesters[0];
   }
 
-  getMarkBySubject(student: Student, subject: Subject): any {
-    for (const mark of student.marks) {
-      if (mark.subject.id === subject.id && mark.semester.id === this.currentSemester.id) {
-        return mark.mark;
-      }
-    }
-    return 'оценка еще не указана';
-  }
-
   test() {
 
 
     const semester = new Semester();
+    semester.id = 1;
     semester.name = 'ЗИМНИЙ';
     semester.year = new Date('01 01 2017');
 
@@ -57,51 +58,82 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
     const mark = new Mark();
     mark.subject = subject;
     mark.semester = semester;
-    mark.mark = 5;
+    mark.marks.push(5);
+    mark.marks.push(4);
+    mark.marks.push(3.8);
 
     const student = new Student();
-    student.surname = 'Plus';
-    student.name = 'RT';
+    student.id = 1;
+    student.surname = 'Renatov';
+    student.name = 'Temirlan';
     student.marks.push(mark);
+
+    const student2 = new Student();
+    student2.id = 2;
+    student2.surname = 'Aibekov';
+    student2.name = 'Baktiyar';
 
     const group = new Gruppa();
     group.name = 'IG-1-15';
     group.students.push(student);
+    group.students.push(student2);
 
     this.group = group;
-    this.semesters.push(semester);
     this.subjects.push(subject);
+    const sem2 = new Semester();
+    sem2.name = 'ЛЕТНИЙ';
+    sem2.id = 2;
+    sem2.year = new Date('01 01 2017');
+    this.semesters.push(semester);
+    this.semesters.push(sem2);
+
   }
 
-  getSubjectsBySemester(semester: Semester): Subject[] {
-    const subjects: Subject[] = new Array();
-    for (const student of this.group.students) {
-      for (const mark of student.marks) {
-        if (mark.semester.id === semester.id) {
-          if (subjects.indexOf(mark.subject) === -1) {
-            this.subjects.push(mark.subject);
-          }
-        }
-      }
-    }
-    return this.subjects;
-  }
 
   updateTable(semester: Semester) {
     this.currentSemester = semester;
     this.subjects.length = 0;
-    this.subjects = this.getSubjectsBySemester(this.currentSemester);
-    this.students = this.group.students;
+    this.subjects = this.group.getGroupSubjectsBySemester(this.currentSemester);
+    console.log('noo');
   }
 
   ngOnInit() {
     /*   this.activatedRoute.queryParams.subscribe(queryParams => {
          this.group = this.groupService.findById(+queryParams['id']);
        });*/
+    this.students = this.group.students;
+
     this.updateTable(this.currentSemester);
+
+
+  }
+
+  onTableDataChanged() {
+    this.dataChanged = true;
+  }
+
+  saveChanges() {
+    this.dataChanged = false;
+  }
+
+  addSubjectToTable(subject: Subject) {
+    this.onTableDataChanged();
+    for (const student of this.students) {
+      const mark = new Mark();
+      mark.semester = this.currentSemester;
+      mark.subject = subject;
+      student.marks.push(mark);
+    }
+    this.subjects.push(subject);
+    console.log('addSubject');
   }
 
   ngOnDestroy(): void {
+    if (this.dataChanged) {
+      if (confirm('Save changes?')) {
+        this.saveChanges();
+      }
+    }
   }
 
 }
