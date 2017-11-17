@@ -56,12 +56,12 @@
         <th scope="row">{{group.name}}</th>
         <ng-container *ngFor="let time of times">
           <td (click)="goToLessonDetails(group.id, time)">
-            <div *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)" [ngClass]="{denominatorClass: lesson.denominator, nominatorClass: !lesson.denominator}"> {{lesson.subject.name}}</div>
+            <p *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)" [ngClass]="{denominatorClass: lesson.denominator, nominatorClass: !lesson.denominator}"> {{lesson.subject.name}}</p>
           </td>
           <td>
-            <div  *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)" [ngClass]="{denominatorClass: lesson.denominator, nominatorClass: !lesson.denominator}">
+            <p  *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)" [ngClass]="{denominatorClass: lesson.denominator, nominatorClass: !lesson.denominator}">
               <span class="badge" *ngFor="let room of lesson.rooms">{{room.name}} </span>
-            </div>
+            </p>
           </td>
         </ng-container>
       </tr>

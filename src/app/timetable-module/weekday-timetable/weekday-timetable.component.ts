@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import {LessonService} from '../../service/lesson-service';
@@ -12,7 +12,7 @@ import {Subject} from 'rxjs/Rx';
   templateUrl: './weekday-timetable.component.html',
   styleUrls: ['./weekday-timetable.component.css']
 })
-export class WeekdayTimetableComponent implements OnInit {
+export class WeekdayTimetableComponent implements OnInit, AfterViewInit {
   weekday: string;
   timetable: Lesson[];
   groups: Gruppa[] = [];
@@ -40,7 +40,12 @@ export class WeekdayTimetableComponent implements OnInit {
     this.initDtOptions();
   }
 
-  getLessonByGroup(id: number): Lesson[] {
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  getLessonByGroup(id: number): Lesson[]{
+    console.log('df');
     return this.timetable.filter(obj => obj.gruppa.id === id);
   }
 
@@ -59,7 +64,6 @@ export class WeekdayTimetableComponent implements OnInit {
         if (this.timetable === null) {
           this.timetable = [];
         }
-        this.dtTrigger.next();
       });
   }
 
@@ -81,6 +85,7 @@ export class WeekdayTimetableComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 20,
+      displayLength: 25,
       dom: 'Bfrtip',
       buttons: [
         'colvis',
