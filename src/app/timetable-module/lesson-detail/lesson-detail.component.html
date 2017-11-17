@@ -17,6 +17,13 @@
       </select>
       <p>Зажмите ctrl чтобы выбрать несколько кабинетов</p>
     </div>
+    <div class="form-group" *ngIf="teachers">
+      <label for="rooms">Преподаватель</label>
+      <select multiple class="form-control" id="teachers" [(ngModel)]="lesson.teachers" name="swef">
+        <option *ngFor="let teacher of teachers" [ngValue]="teacher">{{teacher.name + ' ' + teacher.surname}}</option>
+      </select>
+      <p>Зажмите ctrl чтобы выбрать несколько преподователей</p>
+    </div>
     <button type="submit" (click)="save()" class="btn btn-primary">Сохранить</button>
     <button *ngIf="lesson.id" type="button" class="btn btn-danger" (click)="delete()">Удалить</button>
   </form>

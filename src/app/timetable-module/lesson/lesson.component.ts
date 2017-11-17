@@ -13,6 +13,7 @@ import {Gruppa} from '../../shared/model/GroupModel';
 export class LessonComponent implements OnInit {
   lessons: Lesson[] = [];
   group: Gruppa;
+  ready = false;
 
   constructor(private lessonService: LessonService,
               private groupService: GroupService,
@@ -24,19 +25,16 @@ export class LessonComponent implements OnInit {
       const time = params['time'];
       const id: number = +params['id'];
       const day = params['weekday'];
-      this.groupService.getById(id).then( res => this.group = res);
-      this.getAllLessonsByDayAndTimeAndGroup(day, time, id);
+      this.groupService.getById(id).then( res => {
+        this.group = res;
+        this.getAllLessonsByDayAndTimeAndGroup(day, time, id);
+      });
     });
   }
 
-  createEmptyLesson(weekday: string, time: string, groupId: number): Lesson {
-    const lesson = new Lesson();
-    lesson.time = time;
-    lesson.day = weekday;
-    lesson.subject = {id: null, name: '', teachers: []};
-    lesson.rooms = [];
-    lesson.gruppa = this.group;
-    return lesson;
+  createEmptyLesson(weekday: string, time: string, denominator): Lesson {
+    return {time: time, day: weekday, subject: {id: null, name: ''},
+      rooms: [], gruppa: this.group, id: null, teachers: [], denominator: denominator};
   }
 
   getAllLessonsByDayAndTimeAndGroup(weekday: string, time: string, groupId: number) {
@@ -47,11 +45,12 @@ export class LessonComponent implements OnInit {
         );
       }
       if (this.lessons.length === 0) {
-        this.lessons = [this.createEmptyLesson(weekday, time, groupId), this.createEmptyLesson(weekday, time, groupId)];
+        this.lessons = [this.createEmptyLesson(weekday, time, false), this.createEmptyLesson(weekday, time, true)];
       }
       if (this.lessons.length === 1) {
-        this.lessons = [this.lessons[0], this.createEmptyLesson(weekday, time, groupId)];
+        this.lessons = [this.lessons[0], this.createEmptyLesson(weekday, time, true)];
       }
+      this.ready = true;
     });
   }
 }

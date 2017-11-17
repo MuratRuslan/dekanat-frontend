@@ -2,11 +2,13 @@
   <!--<div *ngFor="let les of lessons">-->
     <!--<app-lesson-detail [lesson] = "les"></app-lesson-detail>-->
   <!--</div>-->
-  <div>
-    <app-lesson-detail [lesson]="lessons[0]"></app-lesson-detail>
-  </div>
-  <div>
-    <app-lesson-detail [lesson]="lessons[1]"></app-lesson-detail>
-  </div>
+  <ng-container *ngIf="ready">
+    <div>
+      <app-lesson-detail [lesson]="lessons[0]"></app-lesson-detail>
+    </div>
+    <div>
+      <app-lesson-detail [lesson]="lessons[1]"></app-lesson-detail>
+    </div>
+  </ng-container>
 </div>
 
