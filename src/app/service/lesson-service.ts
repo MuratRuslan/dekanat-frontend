@@ -18,8 +18,8 @@ export class LessonService extends DefaultService<Lesson> {
       .catch(this.handleError);
   }
 
-  handleError(msg: any): Promise<any> {
+  handleError(msg: Response): Promise<string> {
     console.error('An error occurred', msg);
-    return Promise.reject(msg.message || msg );
+    return Promise.resolve(msg.text());
   }
 }

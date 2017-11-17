@@ -1,7 +1,25 @@
 td:hover {
-  background-color: green;
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
 }
 
 .subject {
   background-color: cyan;
+}
+
+.denominatorClass {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  border-radius: 4px;
+}
+
+.nominatorClass {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #4bffa5;
+  border-radius: 4px;
 }

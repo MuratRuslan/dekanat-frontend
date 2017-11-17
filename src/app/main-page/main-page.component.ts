@@ -12,4 +12,7 @@ export class MainPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  log(msg: string): void {
+    console.log(msg);
+  }
 }

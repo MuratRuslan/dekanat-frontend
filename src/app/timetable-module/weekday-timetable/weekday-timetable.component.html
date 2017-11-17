@@ -1,24 +1,69 @@
+<!--<div class="container">-->
+<!--<div class="table-responsive">-->
+<!--&lt;!&ndash;<table class="table">&ndash;&gt;-->
+<!--<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">-->
+<!--<thead>-->
+<!--<h3>{{weekday}}</h3>-->
+<!--<tr>-->
+<!--<th scope="col">#</th>-->
+<!--<th scope="col" *ngFor="let time of times">{{time.slice(0, 5)}}</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr *ngFor="let group of groups">-->
+<!--<th scope="row">{{group.name}}</th>-->
+<!--<td *ngFor="let time of times" (click)="goToLessonDetails(group.id, time)">-->
+<!--<ng-container *ngIf="timetable">-->
+<!--<div *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)"> {{lesson.subject.name + '\n'}}-->
+<!--<span class="badge" *ngFor="let room of lesson.rooms">{{room.name}} </span>-->
+<!--</div>-->
+<!--</ng-container>-->
+<!--</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+<!--</div>-->
+<!--</div>-->
+
+
 <div class="container">
   <div class="table-responsive">
     <!--<table class="table">-->
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
       <thead>
-      <h3>{{weekday}}</h3>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col" *ngFor="let time of times">{{time.slice(0, 5)}}</th>
+        <th rowspan="2">Группа</th>
+        <th colspan="2" *ngFor="let time of times">{{time.slice(0, 5)}}</th>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let time of times">
+          <th>Предмет</th>
+          <th>Кабинет</th>
+        </ng-container>
       </tr>
       </thead>
-      <tbody>
+      <tfoot>
+      <tr>
+        <th>Группа</th>
+        <ng-container *ngFor="let time of times">
+          <th>Предмет</th>
+          <th>Кабинет</th>
+        </ng-container>
+      </tr>
+      </tfoot>
+      <tbody *ngIf="timetable">
       <tr *ngFor="let group of groups">
         <th scope="row">{{group.name}}</th>
-        <td *ngFor="let time of times" (click)="goToLessonDetails(group.id, time)">
-          <ng-container *ngIf="timetable">
-            <div *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)"> {{lesson.subject.name}}
-              <span class="badge" *ngFor="let room of lesson.rooms">{{room.name}}</span>
-            </div>
-          </ng-container>
-        </td>
+        <ng-container *ngFor="let time of times">
+          <td (click)="goToLessonDetails(group.id, time)">
+            <p *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)" [ngClass]="{denominatorClass: lesson.denominator, nominatorClass: !lesson.denominator}"> {{lesson.subject.name}}</p>
+          </td>
+          <td>
+            <p  *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)" [ngClass]="{denominatorClass: lesson.denominator, nominatorClass: !lesson.denominator}">
+              <span class="badge" *ngFor="let room of lesson.rooms">{{room.name}} </span>
+            </p>
+          </td>
+        </ng-container>
       </tr>
       </tbody>
     </table>

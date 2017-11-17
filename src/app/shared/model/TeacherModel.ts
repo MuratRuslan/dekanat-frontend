@@ -5,5 +5,4 @@ export class Teacher {
   name: string;
   surname: string;
   middleName: string;
-  subjects: Subject[];
 }

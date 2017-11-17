@@ -10,7 +10,6 @@ import {Subject} from '../../../shared/model/SubjectModel';
 export class AddSubjectComponent implements OnInit {
   subject: Subject = new Subject();
   constructor(private subjectService: SubjectService) {
-    this.subject.teachers = [];
   }
 
   ngOnInit() {

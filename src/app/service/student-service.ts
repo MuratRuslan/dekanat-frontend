@@ -16,4 +16,9 @@ export class StudentService extends DefaultService<Student> {
     this.serviceUrl = '/students';
   }
 
+  getStudentsByGroupId(groupId: number): Promise<Student[]> {
+    return this.http.get(this.url + this.serviceUrl + '/group/' + groupId).toPromise()
+      .then(res => res.json() as Student[])
+      .catch(res => res.text());
+  }
 }
