@@ -1,55 +1,75 @@
 <div class="container">
   <h1>{{group.name}}</h1>
+  <br>
   <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{semesters[0].period}}
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose semester
       <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li *ngFor="let semester of semesters" (click)="updateTable(semester)"><a>{{semester.year+"
-        "+semester.period}}</a></li>
+      <li class="pointer" *ngFor="let semester of semesters" (click)="updateTable(semester)"><a>{{semester.year.getFullYear()+"-"+semester.name}}</a>
+      </li>
     </ul>
   </div>
+  <br>
+  <button type="button" class="btn btn-default addSubjectBtn" data-toggle="modal" data-target="#myModal">Add
+    subject
+  </button>
+  <br>
 
-  <table class="table table-hover">
+  <!--Table-->
+  <table class="table table-hover row-border">
     <thead>
     <tr>
       <th>Students</th>
-      <th *ngFor="let subject of subjects">{{subject.name}}</th>
-      <th>
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Add subject</button>
-      </th>
+      <th class="center" *ngFor="let subject of subjects" title="{{subject.name}}">{{subject.name}}</th>
+      <th *ngIf="subjects.length">Student average</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let student of students">
-      <td>{{student.surname+" "+student.name}}</td>
-      <td *ngFor="let s of subjects">{{getMarkBySubject(student,s)}}</td>
+      <td class="pointer" routerLink="/student/{{student.id}}" title="{{student.surname+student.name}}">
+        {{student.surname+" "+student.name}}
+      </td>
+      <td class="pointer center" *ngFor="let s of subjects">
+        <div>
+          {{student.getMarkBySubjectAndSemester(student,s,currentSemester)}}
+          <span *ngIf="student.getFailsAmountBySubjectAndSemester(s,currentSemester)"
+                class="badge warning">
+            {{student.getFailsAmountBySubjectAndSemester(s,currentSemester)}}</span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td *ngIf="subjects.length" class="underline">Group average</td>
     </tr>
     </tbody>
   </table>
+  <button [(disabled)]="!dataChanged" (click)="saveChanges()" class="btn btn-primary saveButton">Save changes</button>
 
 </div>
+<!--Table end-->
 
-<div class="container">
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Choose a subject to add</h4>
-        </div>
-        <div class="modal-body">
-          <a *ngFor="let s of tempSubjects" (click)="subjects.push(s)">{{s.name}}<br></a>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Choose a subject to add</h4>
       </div>
-
+      <div class="modal-body">
+        <ul class="list-group">
+          <a class="list-group-item" *ngFor="let s of tempSubjects" (click)="addSubjectToTable(s);">
+            {{s.name}}<br></a>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
+
   </div>
 
 </div>
+<!-- Modal End-->
