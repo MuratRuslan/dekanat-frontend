@@ -1,11 +1,9 @@
-.row{
-  margin-left: auto;
-  margin-right: auto;
-}
-select{
+select {
   border-radius: 4px;
-  background-color: #fffcd0;
-  /*
+  background-color: inherit;
   outline: none;
-  */
+}
+.col-sm-3{
+  padding: 0;
+  margin: 0;
 }

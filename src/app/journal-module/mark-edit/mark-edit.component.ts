@@ -10,14 +10,20 @@ import {isNull, isUndefined} from 'util';
 export class MarkEditComponent implements OnInit {
 
   @Input() mark: Mark;
-  maxExamFails = 3;
+  @Input() maxExamFails = 3;
+  @Input() minMarkToPassExam = 2.6;
+  @Input() availableMarks: any[] = [];
   maxExamFailsArray: number[] = [];
-  availableMarks: any[] = [];
-  minMarkToPassExam = 2.6;
 
   constructor() {
     if (isNull(this.mark) || isUndefined(this.mark)) {
       this.mark = new Mark();
+    }
+    for (let i = 1; i < this.maxExamFails; i++) {
+      this.maxExamFailsArray.push(i);
+    }
+    for (let i = 2; i <= 5; i++) {
+      this.availableMarks.push(i);
     }
   }
 
@@ -35,12 +41,6 @@ export class MarkEditComponent implements OnInit {
   ngOnInit() {
     if (this.mark.marks.length <= 0) {
       this.mark.marks.push(2);
-    }
-    for (let i = 1; i < this.maxExamFails; i++) {
-      this.maxExamFailsArray.push(i);
-    }
-    for (let i = 2; i <= 5; i++) {
-      this.availableMarks.push(i);
     }
   }
 

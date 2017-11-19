@@ -44,7 +44,7 @@ export class WeekdayTimetableComponent implements OnInit, AfterViewInit {
     this.dtTrigger.next();
   }
 
-  getLessonByGroup(id: number): Lesson[]{
+  getLessonByGroup(id: number): Lesson[] {
     console.log('df');
     return this.timetable.filter(obj => obj.gruppa.id === id);
   }

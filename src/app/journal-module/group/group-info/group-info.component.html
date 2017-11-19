@@ -1,10 +1,13 @@
 <div class="container">
   <h1>{{group.name}}</h1>
   <br>
+  <app-tips></app-tips>
   <app-semester-select (semesterEvent)="updateTable($event)"></app-semester-select>
   <br>
+  <button class="saveButton btn btn-default" data-toggle="modal" data-target="#myModal">Add subject</button>
 
   <!--Table-->
+
   <table class="table table-hover row-border">
     <thead>
     <tr>
@@ -18,14 +21,14 @@
       <td class="pointer" routerLink="/student/{{student.id}}" title="{{student.surname+student.name}}">
         {{student.surname+" "+student.name}}
       </td>
-      <td (click)="selected=true" class="pointer center" *ngFor="let s of subjects">
+      <td (dblclick)="changeSelection()" class="pointer center" *ngFor="let s of subjects">
         <div *ngIf="!selected">
           {{studentService.getMarkBySubjectAndSemester(student,s,currentSemester)}}
           <span *ngIf="studentService.getFailsAmountBySubjectAndSemester(student,s,currentSemester)"
                 class="badge warning">
             {{studentService.getFailsAmountBySubjectAndSemester(student,s,currentSemester)}}</span>
         </div>
-        <app-mark-edit *ngIf="selected"></app-mark-edit>
+        <app-mark-edit *ngIf="selected" [mark]="student.marks[0]"></app-mark-edit>
       </td>
     </tr>
     <tr>
@@ -34,8 +37,8 @@
     </tbody>
   </table>
   <button [(disabled)]="!dataChanged" (click)="saveChanges()" class="btn btn-primary saveButton">Save changes</button>
-
 </div>
+
 <!--Table end-->
 
 <!-- Modal -->

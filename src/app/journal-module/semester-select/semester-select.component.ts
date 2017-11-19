@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SemesterService} from '../../service/semester-service';
 import {Semester} from '../../shared/model/SemesterModel';
 
@@ -9,7 +9,7 @@ import {Semester} from '../../shared/model/SemesterModel';
 })
 export class SemesterSelectComponent implements OnInit {
 
-  semesters: Semester[] = [];
+   semesters: Semester[] = [];
 
   @Output() semesterEvent = new EventEmitter<Semester>();
 

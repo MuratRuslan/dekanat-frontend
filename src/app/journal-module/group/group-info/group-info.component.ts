@@ -29,7 +29,6 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
   group: Gruppa = new Gruppa();
   subjects: Subject[] = [];
   students: Student[] = [];
-  semesters: Semester[] = [];
   currentSemester: Semester;
   dataChanged = false;
   selected = false;
@@ -57,8 +56,11 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
     mark.subject = subject;
     mark.semester = semester;
     mark.marks.push(5);
-    mark.marks.push(4);
-    mark.marks.push(3.8);
+
+    const m = new Mark();
+    m.subject = subject;
+    m.semester = semester;
+    m.marks.push(2);
 
     const student = new Student();
     student.id = 1;
@@ -70,6 +72,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
     student2.id = 2;
     student2.surname = 'Aibekov';
     student2.name = 'Baktiyar';
+    student2.marks.push(m);
 
     const group = new Gruppa();
     group.name = 'IG-1-15';

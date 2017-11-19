@@ -31,6 +31,7 @@ import { StudentListComponent } from './journal-module/student/student-list/stud
 import { StudentInfoComponent } from './journal-module/student/student-info/student-info.component';
 import { MarkEditComponent } from './journal-module/mark-edit/mark-edit.component';
 import { SemesterSelectComponent } from './journal-module/semester-select/semester-select.component';
+import { TipsComponent } from './journal-module/tips/tips.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { SemesterSelectComponent } from './journal-module/semester-select/semest
     StudentListComponent,
     StudentInfoComponent,
     MarkEditComponent,
-    SemesterSelectComponent
+    SemesterSelectComponent,
+    TipsComponent
   ],
   imports: [
     BrowserModule,
