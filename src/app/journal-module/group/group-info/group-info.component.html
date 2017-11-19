@@ -1,18 +1,7 @@
 <div class="container">
   <h1>{{group.name}}</h1>
   <br>
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose semester
-      <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <li class="pointer" *ngFor="let semester of semesters" (click)="updateTable(semester)"><a>{{semester.year.getFullYear()+"-"+semester.name}}</a>
-      </li>
-    </ul>
-  </div>
-  <br>
-  <button type="button" class="btn btn-default addSubjectBtn" data-toggle="modal" data-target="#myModal">Add
-    subject
-  </button>
+  <app-semester-select (semesterEvent)="updateTable($event)"></app-semester-select>
   <br>
 
   <!--Table-->
@@ -29,13 +18,14 @@
       <td class="pointer" routerLink="/student/{{student.id}}" title="{{student.surname+student.name}}">
         {{student.surname+" "+student.name}}
       </td>
-      <td class="pointer center" *ngFor="let s of subjects">
-        <div>
-          {{student.getMarkBySubjectAndSemester(student,s,currentSemester)}}
-          <span *ngIf="student.getFailsAmountBySubjectAndSemester(s,currentSemester)"
+      <td (click)="selected=true" class="pointer center" *ngFor="let s of subjects">
+        <div *ngIf="!selected">
+          {{studentService.getMarkBySubjectAndSemester(student,s,currentSemester)}}
+          <span *ngIf="studentService.getFailsAmountBySubjectAndSemester(student,s,currentSemester)"
                 class="badge warning">
-            {{student.getFailsAmountBySubjectAndSemester(s,currentSemester)}}</span>
+            {{studentService.getFailsAmountBySubjectAndSemester(student,s,currentSemester)}}</span>
         </div>
+        <app-mark-edit *ngIf="selected"></app-mark-edit>
       </td>
     </tr>
     <tr>
@@ -72,4 +62,3 @@
   </div>
 
 </div>
-<!-- Modal End-->

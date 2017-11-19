@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppComponent} from './app.component';
 import {GroupTimetableComponent} from './timetable-module/group-timetable/group-timetable.component';
 import {WeekdayTimetableComponent} from './timetable-module/weekday-timetable/weekday-timetable.component';
@@ -23,11 +22,15 @@ import {AddRoomComponent} from './admin-module/add/add-room/add-room.component';
 import {AddStudentComponent} from './admin-module/add/add-student/add-student.component';
 import {AddSubjectComponent} from './admin-module/add/add-subject/add-subject.component';
 import {StudentService} from './service/student-service';
-import {AddGroupComponent} from './admin-module/add/add-group/add-group.component';
-import { AddSemesterComponent } from './admin-module/add/add-semester/add-semester.component';
 import {SemesterService} from './service/semester-service';
 import {DataTablesModule} from 'angular-datatables';
-
+import {GroupInfoComponent} from './journal-module/group/group-info/group-info.component';
+import {AddSemesterComponent} from './admin-module/add/add-semester/add-semester.component';
+import {AddGroupComponent} from './admin-module/add/add-group/add-group.component';
+import { StudentListComponent } from './journal-module/student/student-list/student-list.component';
+import { StudentInfoComponent } from './journal-module/student/student-info/student-info.component';
+import { MarkEditComponent } from './journal-module/mark-edit/mark-edit.component';
+import { SemesterSelectComponent } from './journal-module/semester-select/semester-select.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +47,13 @@ import {DataTablesModule} from 'angular-datatables';
     AddRoomComponent,
     AddStudentComponent,
     AddSubjectComponent,
+    GroupInfoComponent,
+    AddSemesterComponent,
     AddGroupComponent,
-    AddSemesterComponent
+    StudentListComponent,
+    StudentInfoComponent,
+    MarkEditComponent,
+    SemesterSelectComponent
   ],
   imports: [
     BrowserModule,
