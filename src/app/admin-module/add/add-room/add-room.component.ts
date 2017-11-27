@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Room} from '../../../shared/model/RoomModel';
 import {RoomService} from '../../../service/room-service';
 
@@ -10,7 +10,7 @@ import {RoomService} from '../../../service/room-service';
 })
 export class AddRoomComponent implements OnInit {
 
-  room: Room = new Room();
+  @Input() room: Room = new Room();
 
   constructor(private roomService: RoomService) {
   }

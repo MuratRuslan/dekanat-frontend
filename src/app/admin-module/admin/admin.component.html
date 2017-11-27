@@ -1,21 +1,22 @@
 <div class="container">
   <div class="list-group">
     <label>Добавить</label>
-    <a class="list-group-item" routerLink="/add/teacher">Учителя</a>
-    <a class="list-group-item" routerLink="/add/student">Студента</a>
-    <a class="list-group-item" routerLink="/add/group">Группу</a>
-    <a class="list-group-item" routerLink="/add/room">Кабинет</a>
-    <a class="list-group-item" routerLink="/add/subject">Предмет</a>
-    <a class="list-group-item" routerLink="/add/user">Пользователя</a>
-    <a class="list-group-item" routerLink="/add/semester">Семестр</a>
+    <a class="list-group-item" (click)="goToAdd('teacher')">Учителя</a>
+    <a class="list-group-item" (click)="goToAdd('student')">Студента</a>
+    <a class="list-group-item" (click)="goToAdd('group')">Группу</a>
+    <a class="list-group-item" (click)="goToAdd('room')">Кабинет</a>
+    <a class="list-group-item" (click)="goToAdd('subject')">Предмет</a>
+    <a class="list-group-item" (click)="goToAdd('user')">Пользователя</a>
+    <a class="list-group-item" (click)="goToAdd('semester')">Семестр</a>
   </div>
   <div class="list-group">
     <label>Изменить/Удалить</label>
-    <a class="list-group-item">Учителя</a>
-    <a class="list-group-item" routerLink="/edit/student">Студента</a>
-    <a class="list-group-item">Кабинет</a>
-    <a class="list-group-item">Предмет</a>
+    <a class="list-group-item" (click)="goToEdit('teacher')">Учителя</a>
+    <a class="list-group-item" (click)="goToEdit('student')">Студента</a>
+    <a class="list-group-item" (click)="goToEdit('group')">Группу</a>
+    <a class="list-group-item" (click)="goToEdit('room')">Кабинет</a>
+    <a class="list-group-item" (click)="goToEdit('subject')">Предмет</a>
     <a class="list-group-item">Пользователя</a>
-    <a class="list-group-item">Семестр</a>
+    <a class="list-group-item" (click)="goToEdit('semester')">Семестр</a>
   </div>
 </div>

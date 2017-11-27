@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SubjectService} from '../../../service/subject-service';
 import {Subject} from '../../../shared/model/SubjectModel';
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-add-subject',
@@ -8,7 +9,7 @@ import {Subject} from '../../../shared/model/SubjectModel';
   styleUrls: ['./add-subject.component.css']
 })
 export class AddSubjectComponent implements OnInit {
-  subject: Subject = new Subject();
+  @Input() subject: Subject = new Subject();
   constructor(private subjectService: SubjectService) {
   }
 
@@ -16,7 +17,12 @@ export class AddSubjectComponent implements OnInit {
   }
 
   addSubject() {
-    this.subjectService.add(this.subject).then(msg => alert(msg));
+    this.subjectService.add(this.subject).then(msg => {
+      alert(msg);
+      if (isUndefined(this.subject.id)) {
+        this.subject = new Subject();
+      }
+    });
   }
 
 }

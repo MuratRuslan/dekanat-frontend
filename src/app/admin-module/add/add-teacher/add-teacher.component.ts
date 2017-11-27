@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Teacher} from '../../../shared/model/TeacherModel';
 import {TeacherService} from '../../../service/teacher-service';
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-add-teacher',
@@ -20,7 +21,9 @@ export class AddTeacherComponent implements OnInit {
   addTeacher(teacher: Teacher): void {
     this.teacherService.add(teacher).then(res => {
       alert('Успешно добавлен!');
-      this.teacher = new Teacher();
+      if (isUndefined(this.teacher.id)) {
+        this.teacher = new Teacher();
+      }
     });
   }
 }

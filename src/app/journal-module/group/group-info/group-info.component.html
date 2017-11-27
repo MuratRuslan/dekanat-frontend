@@ -1,67 +1,67 @@
-<div class="container">
-  <h1>{{group.name}}</h1>
-  <br>
-  <app-tips></app-tips>
-  <app-semester-select (semesterEvent)="updateTable($event)"></app-semester-select>
-  <br>
-  <button class="saveButton btn btn-default" data-toggle="modal" data-target="#myModal">Add subject</button>
+<!--<div class="container">-->
+  <!--<h1>{{group.name}}</h1>-->
+  <!--<br>-->
+  <!--&lt;!&ndash;<app-tips></app-tips>&ndash;&gt;-->
+  <!--&lt;!&ndash;<app-semester-select (semesterEvent)="updateTable($event)"></app-semester-select>&ndash;&gt;-->
+  <!--<br>-->
+  <!--<button class="saveButton btn btn-default" data-toggle="modal" data-target="#myModal">Add subject</button>-->
 
-  <!--Table-->
+  <!--&lt;!&ndash;Table&ndash;&gt;-->
 
-  <table class="table table-hover row-border">
-    <thead>
-    <tr>
-      <th>Students</th>
-      <th class="center" *ngFor="let subject of subjects" title="{{subject.name}}">{{subject.name}}</th>
-      <th *ngIf="subjects.length">Student average</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let student of students">
-      <td class="pointer" routerLink="/student/{{student.id}}" title="{{student.surname+student.name}}">
-        {{student.surname+" "+student.name}}
-      </td>
-      <td (dblclick)="changeSelection()" class="pointer center" *ngFor="let s of subjects">
-        <div *ngIf="!selected">
-          {{studentService.getMarkBySubjectAndSemester(student,s,currentSemester)}}
-          <span *ngIf="studentService.getFailsAmountBySubjectAndSemester(student,s,currentSemester)"
-                class="badge warning">
-            {{studentService.getFailsAmountBySubjectAndSemester(student,s,currentSemester)}}</span>
-        </div>
-        <app-mark-edit *ngIf="selected" [mark]="student.marks[0]"></app-mark-edit>
-      </td>
-    </tr>
-    <tr>
-      <td *ngIf="subjects.length" class="underline">Group average</td>
-    </tr>
-    </tbody>
-  </table>
-  <button [(disabled)]="!dataChanged" (click)="saveChanges()" class="btn btn-primary saveButton">Save changes</button>
-</div>
+  <!--<table class="table table-hover row-border">-->
+    <!--<thead>-->
+    <!--<tr>-->
+      <!--<th>Students</th>-->
+      <!--<th class="center" *ngFor="let subject of subjects" title="{{subject.name}}">{{subject.name}}</th>-->
+      <!--<th *ngIf="subjects.length">Student average</th>-->
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--<tr *ngFor="let student of students">-->
+      <!--<td class="pointer" routerLink="/student/{{student.id}}" title="{{student.surname+student.name}}">-->
+        <!--{{student.surname+" "+student.name}}-->
+      <!--</td>-->
+      <!--<td (dblclick)="changeSelection()" class="pointer center" *ngFor="let s of subjects">-->
+        <!--<div *ngIf="!selected">-->
+          <!--{{studentService.getMarkBySubjectAndSemester(student,s,currentSemester)}}-->
+          <!--<span *ngIf="studentService.getFailsAmountBySubjectAndSemester(student,s,currentSemester)"-->
+                <!--class="badge warning">-->
+            <!--{{studentService.getFailsAmountBySubjectAndSemester(student,s,currentSemester)}}</span>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<app-mark-edit *ngIf="selected" [mark]="student.marks[0]"></app-mark-edit>&ndash;&gt;-->
+      <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+      <!--<td *ngIf="subjects.length" class="underline">Group average</td>-->
+    <!--</tr>-->
+    <!--</tbody>-->
+  <!--</table>-->
+  <!--<button [(disabled)]="!dataChanged" (click)="saveChanges()" class="btn btn-primary saveButton">Save changes</button>-->
+<!--</div>-->
 
-<!--Table end-->
+<!--&lt;!&ndash;Table end&ndash;&gt;-->
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog">
+<!--&lt;!&ndash; Modal &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal" role="dialog">-->
+  <!--<div class="modal-dialog">-->
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Choose a subject to add</h4>
-      </div>
-      <div class="modal-body">
-        <ul class="list-group">
-          <a class="list-group-item" *ngFor="let s of tempSubjects" (click)="addSubjectToTable(s);">
-            {{s.name}}<br></a>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+    <!--&lt;!&ndash; Modal content&ndash;&gt;-->
+    <!--<div class="modal-content">-->
+      <!--<div class="modal-header">-->
+        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+        <!--<h4 class="modal-title">Choose a subject to add</h4>-->
+      <!--</div>-->
+      <!--<div class="modal-body">-->
+        <!--<ul class="list-group">-->
+          <!--<a class="list-group-item" *ngFor="let s of tempSubjects" (click)="addSubjectToTable(s);">-->
+            <!--{{s.name}}<br></a>-->
+        <!--</ul>-->
+      <!--</div>-->
+      <!--<div class="modal-footer">-->
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+      <!--</div>-->
+    <!--</div>-->
 
-  </div>
+  <!--</div>-->
 
-</div>
+<!--</div>-->

@@ -14,6 +14,11 @@ import {AddGroupComponent} from './admin-module/add/add-group/add-group.componen
 import {AddSemesterComponent} from './admin-module/add/add-semester/add-semester.component';
 import {GroupInfoComponent} from "./journal-module/group/group-info/group-info.component";
 import {EditStudentComponent} from "./admin-module/edit/edit-student/edit-student.component";
+import {EditTeacherComponent} from "./admin-module/edit/edit-teacher/edit-teacher.component";
+import {EditRoomComponent} from "./admin-module/edit/edit-room/edit-room.component";
+import {EditGroupComponent} from "./admin-module/edit/edit-group/edit-group.component";
+import {EditSubjectComponent} from "./admin-module/edit/edit-subject/edit-subject.component";
+import {EditSemesterComponent} from "./admin-module/edit/edit-semester/edit-semester.component";
 
 
 const routes: Routes = [
@@ -24,14 +29,19 @@ const routes: Routes = [
   {path: 'timetable/lesson/:id/:time/:weekday', component: LessonComponent},
   {path: 'journal', component: GroupListComponent},
   {path: 'admin', component: AdminComponent},
-  {path: 'add/teacher', component: AddTeacherComponent},
-  {path: 'add/student', component: AddStudentComponent},
-  {path: 'add/subject', component: AddSubjectComponent},
-  {path: 'add/group', component: AddGroupComponent},
-  {path: 'add/semester', component: AddSemesterComponent},
-  {path: 'add/room', component: AddRoomComponent},
+  {path: 'admin/add/teacher', component: AddTeacherComponent},
+  {path: 'admin/add/student', component: AddStudentComponent},
+  {path: 'admin/add/subject', component: AddSubjectComponent},
+  {path: 'admin/add/group', component: AddGroupComponent},
+  {path: 'admin/add/semester', component: AddSemesterComponent},
+  {path: 'admin/add/room', component: AddRoomComponent},
   {path: 'group/:id', component: GroupInfoComponent},
-  {path: 'edit/student', component: EditStudentComponent}
+  {path: 'admin/edit/student', component: EditStudentComponent},
+  {path: 'admin/edit/teacher', component: EditTeacherComponent},
+  {path: 'admin/edit/room', component: EditRoomComponent},
+  {path: 'admin/edit/group', component: EditGroupComponent},
+  {path: 'admin/edit/subject', component: EditSubjectComponent},
+  {path: 'admin/edit/semester', component: EditSemesterComponent}
 ];
 
 @NgModule({

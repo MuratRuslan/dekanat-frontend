@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Semester} from '../../../shared/model/SemesterModel';
 import {SemesterService} from '../../../service/semester-service';
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-add-semester',
@@ -8,7 +9,7 @@ import {SemesterService} from '../../../service/semester-service';
   styleUrls: ['./add-semester.component.css']
 })
 export class AddSemesterComponent implements OnInit {
-  semester: Semester;
+  @Input() semester: Semester;
   options = ['ЗИМНИЙ', 'ЛЕТНИЙ'];
   startYear = new Date('01 01 2001');
   currentYear = new Date();
@@ -27,6 +28,9 @@ export class AddSemesterComponent implements OnInit {
   save(): void {
     this.semesterService.add(this.semester).then(res => {
       alert(res);
+      if (isUndefined(this.semester.id)) {
+        this.semester = new Semester();
+      }
     });
   }
 

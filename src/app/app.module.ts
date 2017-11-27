@@ -29,6 +29,11 @@ import {SemesterService} from './service/semester-service';
 import {DataTablesModule} from 'angular-datatables';
 import {GroupInfoComponent} from './journal-module/group/group-info/group-info.component';
 import { EditStudentComponent } from './admin-module/edit/edit-student/edit-student.component';
+import { EditTeacherComponent } from './admin-module/edit/edit-teacher/edit-teacher.component';
+import { EditRoomComponent } from './admin-module/edit/edit-room/edit-room.component';
+import { EditGroupComponent } from './admin-module/edit/edit-group/edit-group.component';
+import { EditSubjectComponent } from './admin-module/edit/edit-subject/edit-subject.component';
+import { EditSemesterComponent } from './admin-module/edit/edit-semester/edit-semester.component';
 
 
 @NgModule({
@@ -49,7 +54,12 @@ import { EditStudentComponent } from './admin-module/edit/edit-student/edit-stud
     AddGroupComponent,
     AddSemesterComponent,
     GroupInfoComponent,
-    EditStudentComponent
+    EditStudentComponent,
+    EditTeacherComponent,
+    EditRoomComponent,
+    EditGroupComponent,
+    EditSubjectComponent,
+    EditSemesterComponent
   ],
   imports: [
     BrowserModule,

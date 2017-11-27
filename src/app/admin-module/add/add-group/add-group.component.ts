@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Gruppa} from '../../../shared/model/GroupModel';
 import {GroupService} from '../../../service/group-service';
 
@@ -8,10 +8,9 @@ import {GroupService} from '../../../service/group-service';
   styleUrls: ['./add-group.component.css']
 })
 export class AddGroupComponent implements OnInit {
-  group: Gruppa;
+  @Input() group: Gruppa = new Gruppa();
 
   constructor(private groupService: GroupService) {
-    this.group = new Gruppa();
   }
 
   ngOnInit() {
