@@ -10,4 +10,12 @@ export class SemesterService extends DefaultService<Semester> {
     super(http);
     this.serviceUrl = '/semesters';
   }
+  getSemesterInAnArrayById(semesters: Semester[], id: number): Semester {
+    for (const semester of semesters) {
+      if (semester.id === id) {
+        return semester;
+      }
+    }
+    return null;
+  }
 }
