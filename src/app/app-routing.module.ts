@@ -10,10 +10,10 @@ import {AddTeacherComponent} from './admin-module/add/add-teacher/add-teacher.co
 import {AddStudentComponent} from './admin-module/add/add-student/add-student.component';
 import {AddSubjectComponent} from './admin-module/add/add-subject/add-subject.component';
 import {AddRoomComponent} from './admin-module/add/add-room/add-room.component';
+import {AddGroupComponent} from './admin-module/add/add-group/add-group.component';
+import {AddSemesterComponent} from './admin-module/add/add-semester/add-semester.component';
 import {GroupInfoComponent} from "./journal-module/group/group-info/group-info.component";
-import {AddGroupComponent} from "./admin-module/add/add-group/add-group.component";
-import {AddSemesterComponent} from "./admin-module/add/add-semester/add-semester.component";
-import {StudentInfoComponent} from "./journal-module/student/student-info/student-info.component";
+import {EditStudentComponent} from "./admin-module/edit/edit-student/edit-student.component";
 
 
 const routes: Routes = [
@@ -31,7 +31,7 @@ const routes: Routes = [
   {path: 'add/semester', component: AddSemesterComponent},
   {path: 'add/room', component: AddRoomComponent},
   {path: 'group/:id', component: GroupInfoComponent},
-  {path: 'student/:id', component: StudentInfoComponent},
+  {path: 'edit/student', component: EditStudentComponent}
 ];
 
 @NgModule({

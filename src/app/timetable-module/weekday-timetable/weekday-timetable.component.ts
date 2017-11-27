@@ -12,7 +12,7 @@ import {Subject} from 'rxjs/Rx';
   templateUrl: './weekday-timetable.component.html',
   styleUrls: ['./weekday-timetable.component.css']
 })
-export class WeekdayTimetableComponent implements OnInit, AfterViewInit {
+export class WeekdayTimetableComponent implements OnInit {
   weekday: string;
   timetable: Lesson[];
   groups: Gruppa[] = [];
@@ -40,11 +40,7 @@ export class WeekdayTimetableComponent implements OnInit, AfterViewInit {
     this.initDtOptions();
   }
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
-
-  getLessonByGroup(id: number): Lesson[]{
+  getLessonByGroup(id: number): Lesson[] {
     console.log('df');
     return this.timetable.filter(obj => obj.gruppa.id === id);
   }
@@ -64,6 +60,7 @@ export class WeekdayTimetableComponent implements OnInit, AfterViewInit {
         if (this.timetable === null) {
           this.timetable = [];
         }
+        this.dtTrigger.next();
       });
   }
 
@@ -84,11 +81,12 @@ export class WeekdayTimetableComponent implements OnInit, AfterViewInit {
   initDtOptions(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 20,
-      displayLength: 25,
+      scrollY:        true,
+      scrollX:        true,
+      scrollCollapse: true,
+      paging:         false,
       dom: 'Bfrtip',
       buttons: [
-        'colvis',
         'copy',
         {
           extend: 'print',
@@ -115,13 +113,6 @@ export class WeekdayTimetableComponent implements OnInit, AfterViewInit {
             columns: ':visible'
           },
           title: this.weekday
-        },
-        {
-          extend: 'pdfHtml5',
-          filename: 'Расписание',
-          title: this.weekday,
-          orientation: 'landscape',
-          pageSize: 'LEGAL'
         }
       ],
       responsive: true

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Student} from '../../../shared/model/StudentModel';
 import {StudentService} from '../../../service/student-service';
 import {GroupService} from '../../../service/group-service';
@@ -11,7 +11,7 @@ import {Gruppa} from '../../../shared/model/GroupModel';
 })
 export class AddStudentComponent implements OnInit {
 
-  student: Student = new Student();
+  @Input() student: Student = new Student();
   groups: Gruppa[] = [];
 
   constructor(private studentService: StudentService,
@@ -26,6 +26,7 @@ export class AddStudentComponent implements OnInit {
   addStudent(): void {
     this.studentService.add(this.student).then(res => {
       alert(res);
+      this.student = new Student();
     });
   }
 

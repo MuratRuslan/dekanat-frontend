@@ -7,7 +7,7 @@ export class Student {
   id: number;
   name: string;
   surname: string;
-  middleName: string;
+  middleName = '';
   marks: Mark[] = [];
   gruppa: Gruppa;
 

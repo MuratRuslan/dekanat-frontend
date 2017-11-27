@@ -17,12 +17,12 @@ import {SemesterService} from '../../../service/semester-service';
 })
 export class GroupInfoComponent implements OnInit, OnDestroy {
 
-  tempSubjects: Subject[] = [{id: 5, name: 'Database', teachers: []},
-    {id: 1, name: 'Algorithmen', teachers: []}];
+  tempSubjects: Subject[] = [{id: 5, name: 'Database'},
+    {id: 1, name: 'Algorithmen'}];
   group: Gruppa = new Gruppa();
   allSubjectsInDekanat: Subject[];
   subjects: Subject[] = [];
-  students: Student[];
+  students: Student[]= [];
   semesters: Semester[] = [];
   currentSemester: Semester;
 
@@ -37,7 +37,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
   getMarkBySubject(student: Student, subject: Subject): any {
     for (const mark of student.marks) {
       if (mark.subject.id === subject.id && mark.semester.id === this.currentSemester.id) {
-        return mark.mark;
+        return null;
       }
     }
     return 'оценка еще не указана';
@@ -57,7 +57,6 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
     const mark = new Mark();
     mark.subject = subject;
     mark.semester = semester;
-    mark.mark = 5;
 
     const student = new Student();
     student.surname = 'Plus';
@@ -66,17 +65,18 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
 
     const group = new Gruppa();
     group.name = 'IG-1-15';
-    group.students.push(student);
+    // group.students.push(student);
 
     this.group = group;
     this.semesters.push(semester);
     this.subjects.push(subject);
+    this.students.push(student);
   }
 
   getSubjectsBySemester(semester: Semester): Subject[] {
     const subjects: Subject[] = new Array();
-    for (const student of this.group.students) {
-      for (const mark of student.marks) {
+    for (const student of this.students) {
+      for (const mark of student.marks)  {
         if (mark.semester.id === semester.id) {
           if (subjects.indexOf(mark.subject) === -1) {
             this.subjects.push(mark.subject);
@@ -91,7 +91,6 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
     this.currentSemester = semester;
     this.subjects.length = 0;
     this.subjects = this.getSubjectsBySemester(this.currentSemester);
-    this.students = this.group.students;
   }
 
   ngOnInit() {

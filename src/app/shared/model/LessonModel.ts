@@ -12,4 +12,5 @@ export class Lesson {
   rooms: Room[];
   teachers: Teacher[];
   denominator: boolean;
+  type: string;
 }

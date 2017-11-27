@@ -5,6 +5,13 @@
       <input required type="text" class="form-control" id="group" name="name" placeholder="Имя"
              [(ngModel)]="group.name">
     </div>
+
+    <div class="form-group">
+      <label for="studyYear">Учебный год</label>
+      <select  class="form-control" id="studyYear" [(ngModel)]="group.startYear"  name="selectedYear" required>
+        <option *ngFor="let year of getYears()" [ngValue] = "year">{{year}}</option>
+      </select>
+    </div>
     <button type="submit" (click)="save()" class="btn btn-primary">Submit</button>
   </form>
 </div>

@@ -1,5 +1,6 @@
 <div class="container">
-  <h2>Изменение данных</h2>
+  <h2 *ngIf="lesson.denominator">Знаменатель</h2>
+  <h2 *ngIf="!lesson.denominator">Числитель</h2>
   <p>Выберите данные и нажмите сохранить чтобы внести в базу данных:</p>
   <form>
     <div class="form-group">
@@ -7,6 +8,14 @@
       <select *ngIf="lesson" class="form-control" id="subjects" [(ngModel)]="lesson.subject" name="selectedSubject" required>
         <option *ngFor="let subject of subjects" [ngValue]="subject"
                 > {{subject.name}}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="subjects">Тип занятости</label>
+      <select *ngIf="lesson" class="form-control" id="type" [(ngModel)]="lesson.type" name="selectedType" required>
+        <option *ngFor="let type of lessonTypes" [value]="type"
+        > {{type}}
         </option>
       </select>
     </div>

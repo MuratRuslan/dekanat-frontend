@@ -18,6 +18,7 @@ export class LessonDetailComponent implements OnInit {
   subjects: Subject[];
   rooms: Room[];
   teachers: Teacher[];
+  lessonTypes = ['ЛК', 'ПР'];
 
   constructor(private subjectService: SubjectService,
               private roomService: RoomService,
@@ -87,6 +88,6 @@ export class LessonDetailComponent implements OnInit {
 
   emptyLesson(): void {
     this.lesson = {time: this.lesson.time, day: this.lesson.day, subject: {id: null, name: ''},
-      rooms: [], gruppa: this.lesson.gruppa, id: null, teachers: [], denominator: this.lesson.denominator};
+      rooms: [], gruppa: this.lesson.gruppa, id: null, teachers: [], denominator: this.lesson.denominator, type: this.lessonTypes[0]};
   }
 }

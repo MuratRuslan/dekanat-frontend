@@ -34,7 +34,7 @@ export class LessonComponent implements OnInit {
 
   createEmptyLesson(weekday: string, time: string, denominator): Lesson {
     return {time: time, day: weekday, subject: {id: null, name: ''},
-      rooms: [], gruppa: this.group, id: null, teachers: [], denominator: denominator};
+      rooms: [], gruppa: this.group, id: null, teachers: [], denominator: denominator, type: 'ЛК'};
   }
 
   getAllLessonsByDayAndTimeAndGroup(weekday: string, time: string, groupId: number) {

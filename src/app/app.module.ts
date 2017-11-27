@@ -27,6 +27,8 @@ import {AddGroupComponent} from './admin-module/add/add-group/add-group.componen
 import { AddSemesterComponent } from './admin-module/add/add-semester/add-semester.component';
 import {SemesterService} from './service/semester-service';
 import {DataTablesModule} from 'angular-datatables';
+import {GroupInfoComponent} from './journal-module/group/group-info/group-info.component';
+import { EditStudentComponent } from './admin-module/edit/edit-student/edit-student.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import {DataTablesModule} from 'angular-datatables';
     AddStudentComponent,
     AddSubjectComponent,
     AddGroupComponent,
-    AddSemesterComponent
+    AddSemesterComponent,
+    GroupInfoComponent,
+    EditStudentComponent
   ],
   imports: [
     BrowserModule,

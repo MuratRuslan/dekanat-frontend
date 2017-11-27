@@ -4,6 +4,12 @@ td:hover {
   left: .1em;
 }
 
+th, td { white-space: nowrap; }
+div.dataTables_wrapper {
+  width: 800px;
+  margin: 0 auto;
+}
+
 .subject {
   background-color: cyan;
 }

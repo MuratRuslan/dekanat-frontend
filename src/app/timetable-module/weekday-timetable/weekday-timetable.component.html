@@ -27,45 +27,46 @@
 
 
 <div class="container">
-  <div class="table-responsive">
-    <!--<table class="table">-->
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-      <thead>
-      <tr>
-        <th rowspan="2">Группа</th>
-        <th colspan="2" *ngFor="let time of times">{{time.slice(0, 5)}}</th>
-      </tr>
-      <tr>
-        <ng-container *ngFor="let time of times">
-          <th>Предмет</th>
-          <th>Кабинет</th>
-        </ng-container>
-      </tr>
-      </thead>
-      <tfoot>
-      <tr>
-        <th>Группа</th>
-        <ng-container *ngFor="let time of times">
-          <th>Предмет</th>
-          <th>Кабинет</th>
-        </ng-container>
-      </tr>
-      </tfoot>
-      <tbody *ngIf="timetable">
-      <tr *ngFor="let group of groups">
-        <th scope="row">{{group.name}}</th>
-        <ng-container *ngFor="let time of times">
-          <td (click)="goToLessonDetails(group.id, time)">
-            <p *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)" [ngClass]="{denominatorClass: lesson.denominator, nominatorClass: !lesson.denominator}"> {{lesson.subject.name}}</p>
-          </td>
-          <td>
-            <p  *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)" [ngClass]="{denominatorClass: lesson.denominator, nominatorClass: !lesson.denominator}">
-              <span class="badge" *ngFor="let room of lesson.rooms">{{room.name}} </span>
-            </p>
-          </td>
-        </ng-container>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="table-responsive">
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="stripe hover cell-border order-column"
+         cellspacing="0" width="100%">
+    <thead>
+    <tr>
+      <th rowspan="2">Группа</th>
+      <th colspan="3" *ngFor="let time of times"></th>
+    </tr>
+    <tr>
+      <ng-container *ngFor="let time of times">dlskfj
+        <th>{{time.slice(0, 5)}}</th>
+        <th>Кабинет</th>
+        <th>Преподаватель</th>
+      </ng-container>
+    </tr>
+    </thead>
+    <tbody *ngIf="timetable">
+    <tr *ngFor="let group of groups">
+      <th scope="row">{{group.name}}</th>
+      <ng-container *ngFor="let time of times">
+        <td (click)="goToLessonDetails(group.id, time)">
+          <p *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)"
+             [ngClass]="{denominatorClass: lesson.denominator, nominatorClass: !lesson.denominator}">
+            {{lesson.subject.name + ' ' + lesson.type}}</p>
+        </td>
+        <td (click)="goToLessonDetails(group.id, time)">
+          <p *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)"
+             [ngClass]="{denominatorClass: lesson.denominator, nominatorClass: !lesson.denominator}">
+            <span class="badge" *ngFor="let room of lesson.rooms">{{room.name}} </span>
+          </p>
+        </td>
+        <td (click)="goToLessonDetails(group.id, time)">
+          <p *ngFor="let lesson of getLessonsByGroupIdAndTime(group.id, time)"
+             [ngClass]="{denominatorClass: lesson.denominator, nominatorClass: !lesson.denominator}">
+            <span *ngFor="let teacher of lesson.teachers">{{teacher.name + ' ' + teacher.surname}}</span>
+          </p>
+        </td>
+      </ng-container>
+    </tr>
+    </tbody>
+  </table>
+</div>
 </div>

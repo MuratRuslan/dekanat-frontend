@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Gruppa} from '../../../shared/model/GroupModel';
 import {GroupService} from '../../../service/group-service';
 
@@ -9,6 +9,7 @@ import {GroupService} from '../../../service/group-service';
 })
 export class AddGroupComponent implements OnInit {
   group: Gruppa;
+
   constructor(private groupService: GroupService) {
     this.group = new Gruppa();
   }
@@ -17,9 +18,17 @@ export class AddGroupComponent implements OnInit {
   }
 
   save(): void {
-    this.groupService.add(this.group).then( res => {
+    this.groupService.add(this.group).then(res => {
       alert(res);
     });
+  }
+
+  getYears(): number[] {
+    const res: number[] = [];
+    for (let i = new Date().getFullYear(); i > 2000; i--) {
+      res.push(i);
+    }
+    return res;
   }
 
 }
