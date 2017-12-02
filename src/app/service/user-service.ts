@@ -1,16 +1,15 @@
-import {Injectable, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
+import {User} from '../shared/model/UserModel';
 import 'rxjs/add/operator/toPromise';
-import {Gruppa} from '../shared/model/GroupModel';
+import {Http, Headers, RequestOptions} from '@angular/http';
+import {Injectable} from '@angular/core';
 import {DefaultService} from './default-service';
 import {AuthenticationService} from './authentication-service';
 
 @Injectable()
-export class GroupService extends DefaultService<Gruppa> {
-
+export class UserService extends DefaultService<User> {
   constructor(http: Http,
               authenticationService: AuthenticationService) {
     super(http, authenticationService);
-    this.serviceUrl = '/groups';
+    this.serviceUrl = '/users';
   }
 }

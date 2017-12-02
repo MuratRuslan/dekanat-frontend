@@ -34,6 +34,11 @@ import { EditRoomComponent } from './admin-module/edit/edit-room/edit-room.compo
 import { EditGroupComponent } from './admin-module/edit/edit-group/edit-group.component';
 import { EditSubjectComponent } from './admin-module/edit/edit-subject/edit-subject.component';
 import { EditSemesterComponent } from './admin-module/edit/edit-semester/edit-semester.component';
+import {LoginComponent} from './login/login.component';
+import {UserService} from './service/user-service';
+import {AuthenticationService} from './service/authentication-service';
+import {AuthGuard} from './guards/auth.guard';
+// import {UserService} from './service/user-service';
 
 
 @NgModule({
@@ -59,7 +64,8 @@ import { EditSemesterComponent } from './admin-module/edit/edit-semester/edit-se
     EditRoomComponent,
     EditGroupComponent,
     EditSubjectComponent,
-    EditSemesterComponent
+    EditSemesterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +75,7 @@ import { EditSemesterComponent } from './admin-module/edit/edit-semester/edit-se
     DataTablesModule
   ],
   providers: [LessonService, GroupService, SubjectService, RoomService,
-    TeacherService, StudentService, SemesterService],
+    TeacherService, StudentService, SemesterService, UserService, AuthenticationService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

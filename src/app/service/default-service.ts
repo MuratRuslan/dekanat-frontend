@@ -1,11 +1,13 @@
 import {Http, Headers, RequestOptions} from '@angular/http';
+import {AuthenticationService} from './authentication-service';
 
 export class DefaultService<T> {
   private headers = new Headers({'Content-Type': 'application/json'});
   url = 'http://localhost:8080/api';
   serviceUrl = '/';
 
-  constructor(protected http: Http) {
+  constructor(protected http: Http,
+              private authenticationService: AuthenticationService) {
 
   }
 
@@ -16,7 +18,9 @@ export class DefaultService<T> {
   }
 
   getAll(): Promise<T[]> {
-    return this.http.get(this.url + this.serviceUrl)
+    const headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+    const options = new RequestOptions({ headers: headers });
+    return this.http.get(this.url + this.serviceUrl, options)
       .toPromise().then(res => res.json() as T[])
       .catch(this.handleError);
   }

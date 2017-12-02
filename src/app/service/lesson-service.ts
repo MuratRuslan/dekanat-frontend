@@ -3,13 +3,15 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {Lesson} from '../shared/model/LessonModel';
 import {DefaultService} from './default-service';
+import {AuthenticationService} from './authentication-service';
 
 @Injectable()
 export class LessonService extends DefaultService<Lesson> {
 
 
-  constructor(http: Http) {
-    super(http);
+  constructor(http: Http,
+              authenticationService: AuthenticationService) {
+    super(http, authenticationService);
     this.serviceUrl = '/lessons';
   }
   getAllByDay(weekday: string): Promise<Lesson[]> {

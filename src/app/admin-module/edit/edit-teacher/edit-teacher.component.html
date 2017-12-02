@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="stripe hover cell-border order-column"
+           cellspacing="0" width="100%" id="example">
+      <thead>
+      <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Отчество</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let teacher of teachers" (click)="selectedTeacher = teacher" data-toggle="modal" data-target="#exampleModal">
+        <td>{{teacher.name}}</td>
+        <td>{{teacher.surname}}</td>
+        <td>{{teacher.middleName}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <button type="button" class="close"
+                  data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            Редактирование
+          </h4>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body" *ngIf="selectedTeacher">
+          <app-add-teacher [teacher]="selectedTeacher"></app-add-teacher>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default"
+                  data-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteteacher()">
+            Удалить
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

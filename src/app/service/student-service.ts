@@ -10,12 +10,14 @@ import {Http} from '@angular/http';
 import {Subject} from '../shared/model/SubjectModel';
 import {Semester} from '../shared/model/SemesterModel';
 import {Mark} from '../shared/model/MarkModel';
+import {AuthenticationService} from './authentication-service';
 
 @Injectable()
 export class StudentService extends DefaultService<Student> {
 
-  constructor(http: Http) {
-    super(http);
+  constructor(http: Http,
+              authenticationService: AuthenticationService) {
+    super(http, authenticationService);
     this.serviceUrl = '/students';
   }
 
