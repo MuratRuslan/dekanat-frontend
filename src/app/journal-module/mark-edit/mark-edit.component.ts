@@ -16,15 +16,7 @@ export class MarkEditComponent implements OnInit {
   maxExamFailsArray: number[] = [];
 
   constructor() {
-    if (isNull(this.mark) || isUndefined(this.mark)) {
-      this.mark = new Mark();
-    }
-    for (let i = 1; i < this.maxExamFails; i++) {
-      this.maxExamFailsArray.push(i);
-    }
-    for (let i = 2; i <= 5; i++) {
-      this.availableMarks.push(i);
-    }
+
   }
 
   onMarkChange(mark, index) {
@@ -39,8 +31,14 @@ export class MarkEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.mark.marks.length <= 0) {
-      this.mark.marks.push(2);
+    if (isNull(this.mark) || isUndefined(this.mark)) {
+      this.mark = new Mark();
+    }
+    for (let i = 1; i < this.maxExamFails; i++) {
+      this.maxExamFailsArray.push(i);
+    }
+    for (let i = 2; i <= 5; i++) {
+      this.availableMarks.push(i);
     }
   }
 

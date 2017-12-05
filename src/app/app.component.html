@@ -3,15 +3,15 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Деканат</a>
+          <a class="navbar-brand" routerLink="/">Деканат</a>
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Домой</a></li>
+          <li class="active"><a routerLink="/">Домой</a></li>
           <li><a routerLink="/journal">Журнал</a></li>
           <li><a routerLink="/timetable">Расписание</a></li>
           <li><a routerLink="/admin">Администрирование</a></li>
           <li><a routerLink="/login">Login</a></li>
-          <li><a (click)="logout()">Logout</a></li>
+          <li><a routerLink="/logout"(click)="logout()">Logout</a></li>
         </ul>
       </div>
     </nav>

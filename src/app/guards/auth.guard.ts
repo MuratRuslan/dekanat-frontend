@@ -8,12 +8,10 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router) { }
 
   canActivate(): boolean {
-    if (localStorage.getItem('currentUser')) {
+    if (localStorage.getItem('currentUser') && !this.isAnonymous()) {
       // logged in so return true
       const userToken = JSON.parse(localStorage.getItem('currentUser'));
-      if (!this.isAnonymous()) {
-        return true;
-      }
+      return true;
     }
 
     // not logged in so redirect to login page
@@ -23,7 +21,7 @@ export class AuthGuard implements CanActivate {
 
   isAnonymous(): boolean {
     const userToken = JSON.parse(localStorage.getItem('currentUser'));
-    if (userToken.username === 'ANONYMOUS' || isUndefined(userToken)) {
+    if (userToken.username === 'ANONYMOUS' || isUndefined(userToken) || userToken == null) {
       return true;
     }
     return false;

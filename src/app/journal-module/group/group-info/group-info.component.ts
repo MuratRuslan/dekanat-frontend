@@ -5,10 +5,13 @@ import {Subject} from '../../../shared/model/SubjectModel';
 import {Student} from '../../../shared/model/StudentModel';
 import {Semester} from '../../../shared/model/SemesterModel';
 import {Mark} from '../../../shared/model/MarkModel';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SubjectService} from '../../../service/subject-service';
+import {MarkService} from '../../../service/mark-service';
+
 import {SemesterService} from '../../../service/semester-service';
 import {StudentService} from '../../../service/student-service';
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-group-info',
@@ -17,95 +20,92 @@ import {StudentService} from '../../../service/student-service';
 })
 export class GroupInfoComponent implements OnInit, OnDestroy {
 
-  tempSubjects: Subject[] = [
-    {id: 5, name: 'Database'},
-    {id: 3, name: 'Economics'},
-    {id: 2, name: 'Deutsch'},
-    {id: 1, name: 'Informatics'},
-    {id: 1, name: 'Algorithmen'},
-    {id: 2, name: 'Chemistry'},
-    {id: 2, name: 'Geometry'}
-  ];
+  notIncludedSubjects: Subject[] = [];
   group: Gruppa = new Gruppa();
+  semesters: Semester[] = [];
   subjects: Subject[] = [];
   students: Student[] = [];
   currentSemester: Semester;
   dataChanged = false;
-  selected = false;
+  edit = false;
+  showTips = false;
+  minMarktoPass = 2.6;
+  removedMarks: Mark[] = [];
 
   constructor(private groupService: GroupService,
               private activatedRoute: ActivatedRoute,
               private subjectService: SubjectService,
               private semesterService: SemesterService,
-              private studentService: StudentService) {
-    this.test();
+              private studentService: StudentService,
+              private markService: MarkService,
+              private router: Router) {
+    /*setTimeout(() => {
+     this.showTips = true;
+     }, 2000);*/
   }
-
-  test() {
-    const semester = new Semester();
-    semester.id = 1;
-    semester.name = 'ЗИМНИЙ';
-    semester.year = new Date('2017');
-    this.currentSemester = semester;
-
-    const subject = new Subject();
-    subject.name = 'Math';
-    subject.id = 1;
-
-    const mark = new Mark();
-    mark.subject = subject;
-    mark.semester = semester;
-    mark.marks.push(5);
-
-    const m = new Mark();
-    m.subject = subject;
-    m.semester = semester;
-    m.marks.push(2);
-
-    const student = new Student();
-    student.id = 1;
-    student.surname = 'Renatov';
-    student.name = 'Temirlan';
-    student.marks.push(mark);
-
-    const student2 = new Student();
-    student2.id = 2;
-    student2.surname = 'Aibekov';
-    student2.name = 'Baktiyar';
-    student2.marks.push(m);
-
-    const group = new Gruppa();
-    group.name = 'IG-1-15';
-
-    this.group = group;
-    this.subjects.push(subject);
-
-    this.students.push(student);
-    this.students.push(student2);
-
-  }
-
 
   updateTable(semester: Semester) {
+    const students = this.students;
+    this.edit = false;
+    this.notIncludedSubjects.length = 0;
     this.currentSemester = semester;
     this.subjects.length = 0;
+    this.students = students;
     this.subjects = this.getGroupSubjectsBySemester(this.students, this.currentSemester);
-    console.log('update');
   }
 
   ngOnInit() {
-    /*   this.activatedRoute.queryParams.subscribe(queryParams => {
-         this.group = this.groupService.findById(+queryParams['id']);
-       });*/
+    console.log('init');
+    this.semesterService.getAll().then(s => {
+        this.semesters = s;
+      }
+    );
+    this.activatedRoute.params.subscribe(queryParams => {
+      this.groupService.getById(+queryParams['id']).then(group => {
+        this.group = group;
+        this.studentService.getStudentsByGroupId(this
+          .group.id).then(students => {
+            this.students = students;
+            if (!isUndefined(students)) {
+              this.updateTable(this
+                .semesters[0]);
+            } else {
+              this.students = [];
+            }
+          }
+        );
+      });
+    });
+  }
 
-    this.updateTable(this.currentSemester);
+  getFails(student, subject, semester): number {
+    return +this.studentService.getFailsAmountBySubjectAndSemester(student, subject, semester);
+  }
+
+  getFailsAmountBySubjectAndSemester(student, subject, semester) {
+    const fails: number = this.getFails(student, subject, semester);
+    if (fails <= 0) {
+      return 'success';
+    }
+    if (fails === 1) {
+      return 'warning';
+    }
+    if (fails === 2) {
+      const last = +this
+        .studentService.getMarkBySubjectAndSemester(student, subject, semester);
+      if (last < this.minMarktoPass) {
+        return 'fired';
+      } else {
+        return 'danger';
+      }
+    }
   }
 
   getGroupSubjectsBySemester(students: Student[], semester: Semester): Subject[] {
     const subjects: Subject[] = [];
     for (const student of students) {
       for (const mark of student.marks) {
-        if (subjects.indexOf(mark.subject) === -1) {
+        if (!this.contains(subjects, mark.subject) && mark.semester.id === semester.id) {
           subjects.push(mark.subject);
         }
       }
@@ -113,37 +113,131 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
     return subjects;
   }
 
+  remove(subjects: Subject[], subject: Subject) {
+    for (const s of subjects) {
+      if (s.id === subject.id) {
+        const index = subjects.indexOf(s);
+        if (index > -1) {
+          subjects = subjects.splice(index, 1);
+        }
+      }
+    }
+  }
+
   changeSelection() {
-    if (this.selected) {
-      this.selected = false;
+    if (this.edit) {
+      this.edit = false;
       return;
     }
-    this.selected = true;
+    this.edit = true;
   }
 
   onTableDataChanged() {
     this.dataChanged = true;
   }
 
+  contains(subjects: Subject[], subject: Subject): boolean {
+    for (const s of subjects) {
+      if (s.id === subject.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  updateNotIncludedSubjects() {
+    this.subjectService.getAll().then(subjects => {
+      for (const s of subjects) {
+        if (!this.contains(this.subjects, s) && !this.contains(this.notIncludedSubjects, s)) {
+          this
+            .notIncludedSubjects.push(s);
+        }
+      }
+    });
+  }
+
+  onSaveChanges() {
+    this.saveChanges();
+  }
+
+  hasAuthorityToEdit(subject: Subject): boolean {
+    if (subject.id === 1) {
+      return true;
+    }
+    return false;
+  }
 
   saveChanges() {
     this.dataChanged = false;
+    for (const student of this.students) {
+      this.markService.addAll(student.marks);
+    }
+    for (const mark of this.removedMarks) {
+      if (mark != null && mark.id != null) {
+        this.markService.delete(mark.id);
+      }
+    }
   }
 
   addSubjectToTable(subject: Subject) {
-    this.onTableDataChanged();
-    for (const student of this.students) {
-      const mark = new Mark();
-      mark.semester = this.currentSemester;
-      mark.subject = subject;
-      student.marks.push(mark);
+    if (!this
+        .contains(this.subjects, subject)) {
+      this
+        .remove(this.notIncludedSubjects, subject);
+
+      this.onTableDataChanged();
+      for (const student of this.students) {
+        const mark = new Mark();
+        mark.id = null;
+        mark.student = student.id;
+        mark.semester = this.currentSemester;
+        mark.subject = subject;
+        student.marks.push(mark);
+      }
+      this.subjects.push(subject);
     }
-    this.subjects.push(subject);
-    console.log('addSubject');
+  }
+
+  removeSubjectFromGroup(subject) {
+    for (const student of this.students) {
+      this
+        .removedMarks.push(this.studentService.getMarkObjectBySubjectAndSemester(student, subject, this.currentSemester));
+    }
+    this.remove(this.subjects, subject);
+    this.removeMarkFromStudentsBySubjectAndSemester(this.students, this.currentSemester, subject);
+  }
+
+  removeMarkFromStudentsBySubjectAndSemester(students: Student[], semester: Semester, subject: Subject) {
+    for (const student of students) {
+      for (const mark of student.marks) {
+        if (mark.semester.id === semester.id && mark.subject.id === subject.id) {
+          const index = student.marks.indexOf(mark);
+          if (index > -1) {
+            student.marks.splice(index, 1);
+          }
+        }
+      }
+    }
+  }
+
+  getFailsAmount(student: Student, semester) {
+    const s: number = +this
+      .studentService.getFailAmountBySemester(student, semester);
+
+    if (s === 0) {
+      return 'success';
+    }
+    if (s > 0 && s <= 2) {
+      return 'warning';
+    }
+    if (s >= 3) {
+      return 'danger';
+    }
   }
 
   ngOnDestroy(): void {
-    if (this.dataChanged) {
+    if (this.dataChanged
+    ) {
       if (confirm('Save changes?')) {
         this.saveChanges();
       }

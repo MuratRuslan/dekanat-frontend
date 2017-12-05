@@ -9,7 +9,7 @@ import {Semester} from '../../shared/model/SemesterModel';
 })
 export class SemesterSelectComponent implements OnInit {
 
-   semesters: Semester[] = [];
+  @Input() semesters: Semester[] = [];
 
   @Output() semesterEvent = new EventEmitter<Semester>();
 
@@ -21,16 +21,7 @@ export class SemesterSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    const sem2 = new Semester();
-    sem2.name = 'ЛЕТНИЙ';
-    sem2.id = 2;
-    sem2.year = new Date('2017');
-    const semester = new Semester();
-    semester.id = 1;
-    semester.name = 'ЗИМНИЙ';
-    semester.year = new Date('01 01 2017');
-    this.semesters.push(sem2);
-    this.semesters.push(semester);
+
   }
 
 

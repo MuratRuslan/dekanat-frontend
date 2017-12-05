@@ -1,12 +1,33 @@
 .saveButton {
   float: right;
   width: 114px;
+  outline: none;
+  margin-bottom: 10px;
 }
 
-.warning{
-  background-color: #fff10d;
+.equalWidthButton {
+  width: 114px;
+  outline: none;
 }
-.modal{
+
+.warning {
+  background-color: #ffed0c;
+}
+.danger{
+  background-color: red;
+}
+.fail:nth-child(odd) {
+  background-color: red;
+  color: white;
+}
+.fail:nth-child(even) {
+  background-color: red;
+  color: white;
+}
+.fired{
+  background-color: blue;
+}
+.modal {
   max-height: 500px;
 }
 
@@ -16,6 +37,7 @@ td, th {
   overflow: hidden;
 
 }
+
 
 .addSubjectBtn {
   width: 114px;
@@ -38,4 +60,15 @@ td, th {
 
 .underline {
   text-decoration: underline;
+}
+
+.btn-circle {
+  outline: none;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  padding: 3px 0;
+  font-size: 12px;
+  line-height: 1.2;
+  border-radius: 15px;
 }

@@ -1,5 +1,6 @@
 <select (change)="onSemesterSelectionChange($event.target.value)">
   <option *ngFor="let semester of semesters" value="{{semester.id}}">
-    {{semester.year.getFullYear()+"-"+semester.name}}
+    {{semester.year|date:'y'}} - {{semester.name}}
+
   </option>
 </select>

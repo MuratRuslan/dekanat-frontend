@@ -1,6 +1,6 @@
 <div class="container">
 
 <div class="list-group">
-  <a  class="list-group-item" *ngFor="let group of GROUPS" [routerLink]="['/group',group.id]" >{{group}}</a>
+  <a  class="list-group-item" *ngFor="let group of groups" (click)="navigateToGroupInfo(group.id)" >{{group.name}}</a>
 </div>
 </div>

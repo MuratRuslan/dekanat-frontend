@@ -1,9 +1,11 @@
-select {
-  border-radius: 4px;
-  background-color: inherit;
-  outline: none;
+.flex-container {
+  display: flex;
+  flex-wrap: nowrap;
 }
-.col-sm-3{
-  padding: 0;
-  margin: 0;
+
+.flex-container > select {
+  width: 100%;
+  margin-right: 2px;
+  margin-left: 2px;
+  text-align: center;
 }

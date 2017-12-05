@@ -34,7 +34,10 @@
         "../node_modules/datatables.net-buttons/js/buttons.print.js",
         "../node_modules/jszip/dist/jszip.min.js",
         "../node_modules/pdfmake/build/pdfmake.min.js",
-        "../node_modules/pdfmake/build/vfs_fonts.js"
+        "../node_modules/pdfmake/build/vfs_fonts.js",
+        "../node_modules/tableexport.jquery.plugin/tableExport.min.js",
+        "../node_modules/tableexport.jquery.plugin/libs/js-xlsx/xlsx.core.min.js",
+        "../node_modules/tableexport.jquery.plugin/libs/FileSaver/FileSaver.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

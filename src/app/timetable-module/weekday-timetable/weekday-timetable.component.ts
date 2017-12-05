@@ -6,6 +6,8 @@ import {GroupService} from '../../service/group-service';
 import {Gruppa} from '../../shared/model/GroupModel';
 import {Lesson} from '../../shared/model/LessonModel';
 import {Subject} from 'rxjs/Rx';
+import {AuthenticationService} from "../../service/authentication-service";
+import {AuthGuard} from "../../guards/auth.guard";
 
 @Component({
   selector: 'app-weekday-timetable',
@@ -23,7 +25,8 @@ export class WeekdayTimetableComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private lessonService: LessonService,
-              private groupService: GroupService) {
+              private groupService: GroupService,
+              private authGuard: AuthGuard) {
   }
 
   ngOnInit() {
@@ -75,7 +78,9 @@ export class WeekdayTimetableComponent implements OnInit {
   }
 
   goToLessonDetails(groupId: number, time: string): void {
-    this.router.navigate(['timetable/lesson', groupId, time, this.weekday]);
+    if (!this.authGuard.isAnonymous()) {
+      this.router.navigate(['timetable/lesson', groupId, time, this.weekday]);
+    }
   }
 
   initDtOptions(): void {
@@ -84,36 +89,9 @@ export class WeekdayTimetableComponent implements OnInit {
       scrollY:        true,
       scrollX:        true,
       scrollCollapse: true,
-      paging:         false,
+      paging:         true,
       dom: 'Bfrtip',
       buttons: [
-        'copy',
-        {
-          extend: 'print',
-          text: 'Распечатать/PDF',
-          title: this.weekday,
-          exportOptions: {
-            modifier: {
-              page: 'current'
-            }
-          }
-        },
-        {
-          extend: 'csvHtml5',
-          filename: 'Расписание',
-          text: 'csv',
-          title: this.weekday,
-          charset: 'UTF-16LE,',
-          bom: true
-        },
-        {
-          extend: 'excelHtml5',
-          filename: 'Расписание',
-          exportOptions: {
-            columns: ':visible'
-          },
-          title: this.weekday
-        }
       ],
       responsive: true
     };
