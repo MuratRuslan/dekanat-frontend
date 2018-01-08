@@ -10,7 +10,7 @@ import {Http, RequestOptions, Headers} from '@angular/http';
 import {Subject} from '../shared/model/SubjectModel';
 import {Semester} from '../shared/model/SemesterModel';
 import {Mark} from '../shared/model/MarkModel';
-import {AuthenticationService} from "./authentication-service";
+import {AuthenticationService} from './authentication-service';
 
 @Injectable()
 export class StudentService extends DefaultService<Student> {

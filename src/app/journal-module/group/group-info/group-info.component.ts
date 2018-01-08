@@ -11,7 +11,6 @@ import {MarkService} from '../../../service/mark-service';
 
 import {SemesterService} from '../../../service/semester-service';
 import {StudentService} from '../../../service/student-service';
-import {isUndefined} from "util";
 
 @Component({
   selector: 'app-group-info',
@@ -45,7 +44,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
   }
 
   updateTable(semester: Semester) {
-    const students = this.students;
+    let students = this.students;
     this.edit = false;
     this.notIncludedSubjects.length = 0;
     this.currentSemester = semester;
@@ -54,8 +53,12 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
     this.subjects = this.getGroupSubjectsBySemester(this.students, this.currentSemester);
   }
 
+  showStudentInfo(id: number): void {
+    this.router.navigate(['student', id]);
+  }
+
   ngOnInit() {
-    console.log('init');
+    console.log('init')
     this.semesterService.getAll().then(s => {
         this.semesters = s;
       }
@@ -66,7 +69,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
         this.studentService.getStudentsByGroupId(this
           .group.id).then(students => {
             this.students = students;
-            if (!isUndefined(students)) {
+            if (this.students != null) {
               this.updateTable(this
                 .semesters[0]);
             } else {
@@ -75,6 +78,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
           }
         );
       });
+
     });
   }
 
@@ -83,7 +87,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
   }
 
   getFailsAmountBySubjectAndSemester(student, subject, semester) {
-    const fails: number = this.getFails(student, subject, semester);
+    var fails: number = this.getFails(student, subject, semester);
     if (fails <= 0) {
       return 'success';
     }
@@ -91,7 +95,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
       return 'warning';
     }
     if (fails === 2) {
-      const last = +this
+      var last = +this
         .studentService.getMarkBySubjectAndSemester(student, subject, semester);
       if (last < this.minMarktoPass) {
         return 'fired';
@@ -161,9 +165,8 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
   }
 
   hasAuthorityToEdit(subject: Subject): boolean {
-    if (subject.id === 1) {
+    if (subject.id === 1)
       return true;
-    }
     return false;
   }
 
@@ -204,7 +207,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
         .removedMarks.push(this.studentService.getMarkObjectBySubjectAndSemester(student, subject, this.currentSemester));
     }
     this.remove(this.subjects, subject);
-    this.removeMarkFromStudentsBySubjectAndSemester(this.students, this.currentSemester, subject);
+    this.removeMarkFromStudentsBySubjectAndSemester(this.students, this.currentSemester, subject)
   }
 
   removeMarkFromStudentsBySubjectAndSemester(students: Student[], semester: Semester, subject: Subject) {
@@ -221,9 +224,9 @@ export class GroupInfoComponent implements OnInit, OnDestroy {
   }
 
   getFailsAmount(student: Student, semester) {
-    const s: number = +this
+    var s: number = +this
       .studentService.getFailAmountBySemester(student, semester);
-
+    ;
     if (s === 0) {
       return 'success';
     }

@@ -21,6 +21,7 @@ import {EditSubjectComponent} from './admin-module/edit/edit-subject/edit-subjec
 import {EditSemesterComponent} from './admin-module/edit/edit-semester/edit-semester.component';
 import {AuthGuard} from './guards/auth.guard';
 import {LoginComponent} from './login/login.component';
+import {StudentInfoComponent} from "./journal-module/student/student-info/student-info.component";
 
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
   {path: 'admin/add/semester', component: AddSemesterComponent, canActivate: [AuthGuard]},
   {path: 'admin/add/room', component: AddRoomComponent, canActivate: [AuthGuard]},
   {path: 'journal/group/:id', component: GroupInfoComponent, canActivate: [AuthGuard]},
+  {path: 'journal/student/:id', component: StudentInfoComponent, canActivate: [AuthGuard]},
   {path: 'admin/edit/student', component: EditStudentComponent, canActivate: [AuthGuard]},
   {path: 'admin/edit/teacher', component: EditTeacherComponent, canActivate: [AuthGuard]},
   {path: 'admin/edit/room', component: EditRoomComponent, canActivate: [AuthGuard]},

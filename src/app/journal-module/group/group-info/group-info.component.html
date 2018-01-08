@@ -38,7 +38,7 @@
         warning:getFailsAmount(student,currentSemester)==='warning'
         }
         ">
-          <td class="pointer" routerLink="/student/{{student.id}}" title="{{student.surname+student.name}}">
+          <td class="pointer" (click)="showStudentInfo(student.id)" title="{{student.surname+student.name}}">
             {{student.surname+" "+student.name}}
           </td>
           <td [ngClass]="{fail:getFailsAmountBySubjectAndSemester(student,s,currentSemester)==='fired'}"
