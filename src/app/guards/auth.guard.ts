@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import {isUndefined} from "util";
+import {isUndefined} from 'util';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

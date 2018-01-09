@@ -11,9 +11,13 @@ import {isUndefined} from 'util';
 export class AppComponent {
   title = 'app';
 
-  constructor(private authService: AuthenticationService,
+  constructor(public authService: AuthenticationService,
               private router: Router) {
-    this.login();
+    if (authService.hasNoToken() || authService.isTokenExpired()) {
+      console.log('expired or no token ' + authService.token);
+      console.log('hasNoToken: ' + authService.hasNoToken() + ' \n ' + authService.isTokenExpired())
+      this.login();
+    }
   }
 
   login() {

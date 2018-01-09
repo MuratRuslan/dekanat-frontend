@@ -1,7 +1,8 @@
 import {Injectable, OnInit} from '@angular/core';
-import {Http, Headers, Response} from '@angular/http';
+import {Http, Headers, Response, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs/Observable';
+import {isNull, isUndefined} from 'util';
 
 @Injectable()
 export class AuthenticationService {
@@ -47,5 +48,37 @@ export class AuthenticationService {
         }
       }
     );
+  }
+
+  isAnonymous() {
+    const userToken = JSON.parse(localStorage.getItem('currentUser'));
+    if (userToken.username === 'ANONYMOUS' || isUndefined(userToken) || userToken == null) {
+      return true;
+    }
+    return false;
+  }
+
+  hasNoToken() {
+    const userToken = JSON.parse(localStorage.getItem('currentUser'));
+    if (isUndefined(userToken) || isNull(userToken) || userToken == null) {
+      return true;
+    }
+    return false;
+  }
+
+  isTokenExpired(): boolean {
+    const headers = new Headers({'Authorization': 'Bearer ' + this.token});
+    const options = new RequestOptions({headers: headers});
+    let expired = false;
+    this.http.get('http://31.186.53.209:8081/api/semesters', options)
+      .toPromise().then( () => {
+        console.log('then');
+      return false;
+    })
+      .catch(() => {
+        console.log('catecch ');
+        return true;
+      }).then((res) => expired = res);
+    return expired;
   }
 }

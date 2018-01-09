@@ -11,8 +11,8 @@
           <li><a routerLink="/timetable">Расписание</a></li>
           <li><a href="/inventory">Инвентаризация</a></li>
           <li><a routerLink="/admin">Администрирование</a></li>
-          <li><a routerLink="/login">Login</a></li>
-          <li><a routerLink="/logout"(click)="logout()">Logout</a></li>
+          <li><a routerLink="/login" *ngIf="authService.isAnonymous()">Login</a></li>
+          <li><a routerLink="/logout"(click)="logout()" *ngIf="!authService.isAnonymous()">Logout</a></li>
         </ul>
       </div>
     </nav>
