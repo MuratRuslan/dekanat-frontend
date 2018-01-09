@@ -77,6 +77,7 @@ export class AuthenticationService {
     })
       .catch(() => {
         console.log('catecch ');
+        this.login('ANONYMOUS', 'ANONYMOUS').subscribe();
         return true;
       }).then((res) => expired = res);
     return expired;
