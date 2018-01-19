@@ -22,30 +22,12 @@ import {EditSemesterComponent} from './admin-module/edit/edit-semester/edit-seme
 import {AuthGuard} from './guards/auth.guard';
 import {LoginComponent} from './login/login.component';
 import {StudentInfoComponent} from "./journal-module/student/student-info/student-info.component";
+import {AddUserComponent} from "./admin-module/add/add-user/add-user.component";
 
 
 const routes: Routes = [
   {path: '', redirectTo: '/main', pathMatch: 'full'},
   {path: 'main', component: MainPageComponent},
-  {path: 'timetable', component: WeekdayListComponent},
-  {path: 'timetable/detail/:day', component: WeekdayTimetableComponent},
-  {path: 'timetable/lesson/:id/:time/:weekday', component: LessonComponent, canActivate: [AuthGuard]},
-  {path: 'journal', component: GroupListComponent, canActivate: [AuthGuard]},
-  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
-  {path: 'admin/add/teacher', component: AddTeacherComponent, canActivate: [AuthGuard]},
-  {path: 'admin/add/student', component: AddStudentComponent, canActivate: [AuthGuard]},
-  {path: 'admin/add/subject', component: AddSubjectComponent, canActivate: [AuthGuard]},
-  {path: 'admin/add/group', component: AddGroupComponent, canActivate: [AuthGuard]},
-  {path: 'admin/add/semester', component: AddSemesterComponent, canActivate: [AuthGuard]},
-  {path: 'admin/add/room', component: AddRoomComponent, canActivate: [AuthGuard]},
-  {path: 'journal/group/:id', component: GroupInfoComponent, canActivate: [AuthGuard]},
-  {path: 'journal/student/:id', component: StudentInfoComponent, canActivate: [AuthGuard]},
-  {path: 'admin/edit/student', component: EditStudentComponent, canActivate: [AuthGuard]},
-  {path: 'admin/edit/teacher', component: EditTeacherComponent, canActivate: [AuthGuard]},
-  {path: 'admin/edit/room', component: EditRoomComponent, canActivate: [AuthGuard]},
-  {path: 'admin/edit/group', component: EditGroupComponent, canActivate: [AuthGuard]},
-  {path: 'admin/edit/subject', component: EditSubjectComponent, canActivate: [AuthGuard]},
-  {path: 'admin/edit/semester', component: EditSemesterComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent }
 ];
 
