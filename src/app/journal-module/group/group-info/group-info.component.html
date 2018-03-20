@@ -1,82 +1,86 @@
-<div class="container">
+<div *ngIf="!dataSaved" class="saving-proccess">
+  <h3>Cохранение изменений</h3>
+
+  <div class="loader"></div>
+</div>
+<div *ngIf="dataSaved" class="container group-info-body">
   <app-tips *ngIf="showTips"></app-tips>
   <h1>{{group.name}}</h1>
   <br>
 
   <div *ngIf="students.length">
 
-    <app-semester-select [semesters]="semesters" (semesterEvent)="updateTable($event)"></app-semester-select>
-    <button *ngIf="subjects.length" class="btn btn-info equalWidthButton" (click)="changeSelection()">Edit</button>
+    <app-semester-select [semesters]="semesters" [currentSemester]="currentSemester"
+                         (semesterEvent)="updateTable($event)"></app-semester-select>
+    <button *ngIf="subjects.length" class="btn btn-info equalWidthButton" (click)="changeSelection()">Изменить</button>
     <button class="saveButton btn btn-info" data-toggle="modal" (click)="updateNotIncludedSubjects()"
-            data-target="#myModal">Add subject
+            data-target="#myModal">Добавить предмет
     </button>
-    <button *ngIf="!edit" type="button" class="equalWidthButton btn btn-info"
+    <button [disabled]="edit" type="button" class="equalWidthButton btn btn-info"
             onClick="$('#table').tableExport({type:'excel',escape:'false'});">
       EXCEL
     </button>
-
     <!--Table-->
+    <div [ngClass]="{tableContainer:subjects.length>3}">
 
-    <table id="table" class="table table-bordered">
-      <thead>
-      <tr>
-        <th>Students</th>
-        <th class="center" *ngFor="let subject of subjects" title="{{subject.name}}">{{subject.name}}
-          <button *ngIf="edit" (click)="removeSubjectFromGroup(subject);" type="button"
-                  class="btn btn-danger btn-circle">
-            <i class="glyphicon glyphicon-remove"></i>
-          </button>
-        </th>
-        <th *ngIf="subjects.length">Student average</th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-container *ngFor="let student of students">
-        <tr
-          [ngClass]="{success:getFailsAmount(student,currentSemester)==='success',
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th class="headcol">Студент</th>
+          <th class="center" *ngFor="let subject of subjects" title="{{subject.name}}">
+            <button *ngIf="edit" (click)="removeSubjectFromGroup(subject);" type="button"
+                    class="btn btn-danger btn-circle">
+              <i class="glyphicon glyphicon-remove"></i>
+            </button>
+            {{subject.name}}
+          </th>
+          <th *ngIf="subjects.length">
+            <app-subjects-sort (onSubjectChange)="onMarkChanged()" [subjects]="subjects" [sortedSubjects]="sortedSubjects"></app-subjects-sort>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let student of students">
+          <tr
+            [ngClass]="{success:getFailsAmount(student,currentSemester)==='success',
         danger:getFailsAmount(student,currentSemester)==='danger',
         warning:getFailsAmount(student,currentSemester)==='warning'
         }
         ">
-          <td class="pointer" (click)="showStudentInfo(student.id)" title="{{student.surname+student.name}}">
-            {{student.surname+" "+student.name}}
-          </td>
-          <td [ngClass]="{fail:getFailsAmountBySubjectAndSemester(student,s,currentSemester)==='fired'}"
-              (dblclick)="changeSelection()" class="pointer center"
-              *ngFor="let s of subjects">
-            <div *ngIf="!edit">
-              {{studentService.getMarkBySubjectAndSemester(student,s,currentSemester)}}
-          <span *ngIf="studentService.getFailsAmountBySubjectAndSemester(student,s,currentSemester)"
-                [ngClass]="{
-                warning:getFailsAmountBySubjectAndSemester(student,s,currentSemester)==='warning',
-                danger:getFailsAmountBySubjectAndSemester(student,s,currentSemester)==='danger',
-                fired:getFailsAmountBySubjectAndSemester(student,s,currentSemester)==='fired'
-                }"
-                class="badge">
-            {{getFails(student,s,currentSemester)}}</span>
-            </div>
-            <app-mark-edit (markChangeEvent)="updateTable(currentSemester)" *ngIf="edit"
-                           [mark]="studentService.getMarkObjectBySubjectAndSemester(student,s,currentSemester)"></app-mark-edit>
-          </td>
-          <td class="center" *ngIf="subjects.length&&!edit">
-            <ins>{{student|studentMarkAverage:currentSemester}}</ins>
-          </td>
-        </tr>
-      </ng-container>
-      <tr>
-        <td *ngIf="subjects.length" class="underline">Group average</td>
-        <ng-container *ngIf="subjects.length&&!edit">
-          <td class="center" *ngFor="let subject of subjects">
-            <ins>{{students|groupMarkAverage:subject:currentSemester}}</ins>
-          </td>
-        </ng-container>
-      </tr>
-      </tbody>
-    </table>
-    <button  (click)="onSaveChanges()" class="btn btn-info saveButton">Save changes</button>
-  </div>
-</div>
+            <th class="pointer headcol" title="{{student.surname+student.name}}">
+              {{student.surname+" "+student.name}}
+            </th>
+            <td [ngClass]="{fail:getFailsAmountBySubjectAndSemester(student,s,currentSemester)==='fired'}"
+                (dblclick)="changeSelection()" class="pointer center"
+                *ngFor="let s of subjects">
 
+              <app-mark-browse *ngIf="!edit"
+                               [mark]="studentService.getMarkObjectBySubjectAndSemester(student,s,currentSemester)"></app-mark-browse>
+              <app-mark-edit (markChangeEvent)="onMarkChanged()" *ngIf="edit"
+                             [mark]="studentService.getMarkObjectBySubjectAndSemester(student,s,currentSemester)"></app-mark-edit>
+            </td>
+            <th class="center" *ngIf="subjects.length">
+              <ins>{{
+                student|studentMarkAverage:currentSemester:sortedSubjects:updateViewVar}}
+              </ins>
+            </th>
+          </tr>
+        </ng-container>
+        <tr>
+          <th *ngIf="subjects.length" class="underline headcol">Средний показатель группы</th>
+          <ng-container *ngIf="subjects.length">
+            <td class="center" *ngFor="let subject of subjects">
+              <ins>{{students|groupMarkAverage:subject:currentSemester:updateViewVar}}</ins>
+            </td>
+          </ng-container>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <button [disabled]="!dataChanged" (click)="onSaveChanges()" class="btn btn-info saveButton">Сохранить изменения</button>
+</div>
 <!--Table end-->
 
 <!-- Modal -->
@@ -87,7 +91,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Choose a subject to add</h4>
+        <h4 class="modal-title">Выберите предмет</h4>
       </div>
       <div class="modal-body">
         <ul class="list-group">
@@ -96,7 +100,7 @@
         </ul>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
       </div>
     </div>
 

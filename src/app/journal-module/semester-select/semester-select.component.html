@@ -1,6 +1,5 @@
 <select (change)="onSemesterSelectionChange($event.target.value)">
-  <option *ngFor="let semester of semesters" value="{{semester.id}}">
+  <option *ngFor="let semester of semesters" value="{{semester.id}}" [selected]="isSeledtedOption(semester)">
     {{semester.year|date:'y'}} - {{semester.name}}
-
   </option>
 </select>

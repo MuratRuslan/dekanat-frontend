@@ -69,4 +69,12 @@ export class StudentService extends DefaultService<Student> {
     }
     return null;
   }
+
+  getStudentsByGroupIdAndSemesterId(groupId: number, semesterId: number): Promise<Student[]> {
+    const headers = new Headers({'Authorization': 'Bearer ' + this.authenticationService.token});
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(this.url + this.serviceUrl + '/' + groupId + '/' + semesterId, options).toPromise()
+      .then(res => res.json() as Student[])
+      .catch(res => res.text());
+  }
 }

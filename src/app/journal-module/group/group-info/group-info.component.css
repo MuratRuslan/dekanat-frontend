@@ -1,10 +1,12 @@
 .saveButton {
   float: right;
-  width: 114px;
   outline: none;
   margin-bottom: 10px;
+  text-overflow: ellipsis;
 }
-
+button{
+  width: 160px;
+}
 .equalWidthButton {
   width: 114px;
   outline: none;
@@ -13,41 +15,47 @@
 .warning {
   background-color: #ffed0c;
 }
-.danger{
+
+.danger {
   background-color: red;
 }
+
 .fail:nth-child(odd) {
   background-color: red;
   color: white;
 }
+
 .fail:nth-child(even) {
   background-color: red;
   color: white;
 }
-.fired{
+
+.fired {
   background-color: blue;
 }
+
 .modal {
   max-height: 500px;
 }
 
-td, th {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-
-}
-
-
-.addSubjectBtn {
-  width: 114px;
-  float: right;
+.tableContainer {
+  overflow-x: scroll;
+  width: 100%;
 }
 
 .table {
-  max-width: none;
   table-layout: fixed;
   word-wrap: break-word;
+  user-select: none;
+  width: 100%
+}
+
+th {
+  width: 225px;
+}
+.addSubjectBtn {
+  width: 114px;
+  float: right;
 }
 
 .center {
@@ -71,4 +79,43 @@ td, th {
   font-size: 12px;
   line-height: 1.2;
   border-radius: 15px;
+}
+
+.saving-proccess {
+  z-index: -1;
+  margin-left: 42%;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  margin-left: 8%;
+}
+
+.exam-admit {
+  width: 3%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -11,8 +11,9 @@ import {GroupMarkAveragePipe} from './pipe/group-mark-average.pipe';
 import {StudentMarkAveragePipe} from './pipe/student-mark-average.pipe';
 import {journalRoutings} from './journal.routing';
 import {GroupInfoComponent} from './group/group-info/group-info.component';
-import {GroupListComponent} from "./group/group-list/group-list.component";
-
+import {GroupListComponent} from './group/group-list/group-list.component';
+import { MarkBrowseComponent } from './mark-browse/mark-browse.component';
+import { SubjectsSortComponent } from './subjects-sort/subjects-sort.component';
 
 
 @NgModule({
@@ -31,7 +32,9 @@ import {GroupListComponent} from "./group/group-list/group-list.component";
     GroupMarkAveragePipe,
     StudentMarkAveragePipe,
     GroupInfoComponent,
-    GroupListComponent
+    GroupListComponent,
+    MarkBrowseComponent,
+    SubjectsSortComponent
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

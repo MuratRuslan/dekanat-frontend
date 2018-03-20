@@ -18,6 +18,7 @@ import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from '../app-routing.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {DataTablesModule} from 'angular-datatables';
+import {EditUserComponent} from './edit/edit-user/edit-user.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import {DataTablesModule} from 'angular-datatables';
     EditStudentComponent,
     EditTeacherComponent,
     EditRoomComponent,
-    EditSubjectComponent
+    EditSubjectComponent,
+    EditUserComponent
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

@@ -7,7 +7,6 @@ import {StudentInfoComponent} from './student/student-info/student-info.componen
 
 const journalRoutes: Routes = [
   {path: 'journal', component: GroupListComponent, canActivate: [AuthGuard]},
-  {path: 'journal/group/:id', component: GroupInfoComponent, canActivate: [AuthGuard]},
-  {path: 'journal/student/:id', component: StudentInfoComponent, canActivate: [AuthGuard]},
+  {path: 'journal/group/:id', component: GroupInfoComponent, canActivate: [AuthGuard]}
 ];
 export const journalRoutings: ModuleWithProviders = RouterModule.forChild(journalRoutes);

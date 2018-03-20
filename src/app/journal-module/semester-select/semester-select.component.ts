@@ -9,14 +9,16 @@ import {Semester} from '../../shared/model/SemesterModel';
 })
 export class SemesterSelectComponent implements OnInit {
 
-  @Input() semesters: Semester[] = [];
+  @Input()semesters:Semester[] = [];
+
+  @Input()currentSemester:Semester;
 
   @Output() semesterEvent = new EventEmitter<Semester>();
 
-  constructor(private semesterService: SemesterService) {
+  constructor(private semesterService:SemesterService) {
   }
 
-  onSemesterSelectionChange(semesterId: number) {
+  onSemesterSelectionChange(semesterId:number) {
     this.semesterEvent.emit(this.semesterService.getSemesterInAnArrayById(this.semesters, +semesterId));
   }
 
@@ -24,5 +26,7 @@ export class SemesterSelectComponent implements OnInit {
 
   }
 
-
+  isSeledtedOption(semester:Semester):boolean {
+    return semester.id === this.currentSemester.id;
+  }
 }

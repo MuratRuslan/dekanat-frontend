@@ -1,6 +1,6 @@
 <div class="container">
 
-<div class="list-group">
-  <a  class="list-group-item" *ngFor="let group of groups" (click)="navigateToGroupInfo(group.id)" >{{group.name}}</a>
-</div>
+  <div class="list-group">
+    <a class="list-group-item" *ngFor="let group of groups" (click)="goToGroupInfo(group.id)">{{group.name}}</a>
+  </div>
 </div>
